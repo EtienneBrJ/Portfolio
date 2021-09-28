@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+<blockquote class="blockquote m-4">
+    <p>Ethereum Blockchain /Blocks</p>
+  </blockquote>
+
+<div class="col-xs-6">
+    <h2 class="sub-header"></h2>
+    <div class="table-responsive-sm">
+        <table class="table table-dark table-hover">
+            <thead>
+                <tr>
+                    <th class="col-md-1">Block number</th>
+                    <th class="col-md-1">Age</th>
+                    <th class="col-md-1">Transactions</th>
+                    <th class="col-md-1">Uncle</th>
+                    <th class="col-md-1">Miner</th>
+                    <th class="col-md-1">Gas used</th>
+                </tr>
+            </thead>
+            {% for i in range(last_blocks| length) %}
+            <tbody>
+                <tr class="col-md-1">
+                    <td>{{ last_blocks[i].number }}</td>
+                    <td class="col-md-1">{{ last_blocks[i].timestamp | since }}</td>
+                    <td class="col-md-1">{{ last_blocks[i].transactions | length }}</td>
+                    <td class="col-md-1">{{ last_blocks[i].uncles | length }}</td>
+                    <td class="col-md-1">
+                        {% if last_blocks[i].miner.lower() in miners %}
+                        {{ miners[last_blocks[i].miner.lower()] }}
+                        {% else %}
+                        {{ last_blocks[i].miner.lower() | cutter }}
+                        {% endif %}
+                    </td>
+                    <td class="col-md-1">{{ last_blocks[i].gasUsed }}</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% endblock %}

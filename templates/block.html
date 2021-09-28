@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+
+Block details section
+<br/>
+Block number : {{ block_number }}
+<br/>
+{% if info_block %}
+Block info : {{ info_block['difficulty'] }}
+{% endif %}
+
+{% endblock %}

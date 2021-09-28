@@ -1,0 +1,21 @@
+footer {
+  position: relative;
+  height: 55px;
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+}
+
+.textFooter {
+  font-size: 16px;
+  position: absolute;
+  bottom: 0px;
+  right: 18px;
+}
+
+div#loading {
+  width: auto;
+  height: 100vh;
+  display: none;
+  background: url(/static/images/load.jpg) no-repeat center;
+  background-color: white;
+  }

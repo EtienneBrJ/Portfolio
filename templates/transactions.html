@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<blockquote class="blockquote m-4">
+    <p>Ethereum Blockchain /Transactions</p>
+</blockquote>
+
+<div class="col-xs-6">
+    <h2 class="sub-header"></h2>
+    <class class="table-responsive">
+        <table class="table table-dark table-hover">
+            <thead>
+                <th class="col-md-1">Txn hash</th>
+                <th class="col-md-1">Age</th>
+                <th class="col-md-1">From</th>
+                <th class="col-md-1">To</th>
+                <th class="col-md-1">Amount</th>
+            </thead>
+            {% for i in range(last_txn| length) %}
+            <tbody>
+                <tr>
+                    <td class="col-md-1" data-bs-toggle="tooltip" data-bs-placement="top" title={{ last_txn[i].hash | fromHex }}>
+                        {{ last_txn[i].hash | fromHex | cutter }}
+                      </td>
+                    <td class="col-md-1">{{ last_block[0].timestamp | since }}</td>
+                    <td class="col-md-1 data-bs-toggle="tooltip" data-bs-placement="top" title={{ last_txn[i].hash | fromHex }}">{{ last_txn[i].from | cutter}}</td>
+                    <td class="col-md-1 data-bs-toggle="tooltip" data-bs-placement="top" title={{ last_txn[i].hash | fromHex }}">{{ last_txn[i].to | cutter }}</td>
+                    <td class="col-md-1">{{ last_txn[i].value | fromWei}} eth</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </class>
+</div>
+
+{% endblock %}
