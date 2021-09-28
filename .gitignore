@@ -3,5 +3,4 @@ IDEAS
 NEED TO FIX
 test.py
 README.md
-__pycache__
-/home/etienne/Applications/BlockExplorer/__pycache__
+*.pyc
