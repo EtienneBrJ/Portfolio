@@ -1,10 +1,11 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-Transaction block details
-<br/>
-Transaction hash : {{ hash }}
-<br/>
+<h4>Transaction block details</h4>
+<p>Txn hash : {{ tx.get('hash') | fromHex | cutter }}</p>
+<p>Age : {{ last_block[0].get('timestamp') | since }}</p>
+<p>From : {{ tx.get('from') | fromHex | cutter }}</p>
+<p>To : {{ tx.get('to') | fromHex | cutter }}</p>
+<p>Amount : {{ tx.get('value') | fromWei }} eth</p>
 
-Transaction info : {{ tx }}
 {% endblock %}

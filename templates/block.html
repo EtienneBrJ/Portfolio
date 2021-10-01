@@ -3,12 +3,16 @@
 
 {% block content %}
 
-Block details section
-<br/>
-Block number : {{ block_number }}
-<br/>
-{% if info_block %}
-Block info : {{ info_block['difficulty'] }}
-{% endif %}
-
+<h4>Block details section</h4>
+<div>
+    <p>Block number : {{ block.get('number') }}</p>
+    <p>Age : {{ block.get('timestamp') | since }}</p>
+    <p>Difficulty : {{ block.get('difficulty') }}</p>
+    <p>Transactions : {{ block.get('transactions') | length }}</p>
+    <p>Miner : {% if block.miner.lower() in miners %}
+        {{ miners[block.miner.lower()] }}
+        {% else %}
+        {{ block.miner.lower() }}
+        {% endif %}</p>
+</div>
 {% endblock %}
