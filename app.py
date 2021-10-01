@@ -3,11 +3,13 @@
 
     Defining routes of the web application
 """
+from eth_typing.encoding import HexStr
+from werkzeug.utils import redirect
 import config
 from filters_builder import checkSeconds, fromTimestampToNow
 from web3 import Web3
-from flask import Flask, render_template
-from funcs import getlatestBlocks, getlatestTxn
+from flask import Flask, render_template, request, redirect
+from funcs import getlatestBlocks, getlatestTxn, checkIncomingReq
 
 ws_provider = Web3.WebsocketProvider(config.MAINNET_WSS)
 w3 = Web3(ws_provider)
@@ -21,14 +23,14 @@ def not_found(e):
     return render_template("404.html")
 
 # Routes
-@app.route('/')
+@app.route('/', methods=["POST", "GET"])
 def index():
-    """ Home page
-        The homepage will display this info on the 5 latest block mined on the network:
-                Block number:
-                Miner:
-                Block reward:
+    """ Home page, if request.method is POST, call the func 
     """
+    if request.method == 'POST':
+        search_url = checkIncomingReq(request.form['search'])
+        if search_url:
+            return redirect(search_url)
     return render_template('index.html', last_blocks=getlatestBlocks(10), last_txn=getlatestTxn(10), miners=config.dict_miners)
 
 @app.route('/blocks/')

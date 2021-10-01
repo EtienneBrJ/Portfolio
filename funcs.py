@@ -3,6 +3,10 @@
 """
 import config
 from web3 import Web3
+from flask import redirect, request
+from eth_typing.encoding import HexStr
+
+
 
 ws_provider = Web3.WebsocketProvider(config.MAINNET_WSS)
 w3 = Web3(ws_provider)
@@ -26,3 +30,62 @@ def getlatestTxn(n=5):
     for idx in range(n):
         last_txn.append(w3.eth.get_transaction_by_block('latest', idx))
     return last_txn
+
+def checkIfTx(inputData):
+    """ Call a web3 func to check if the response exist
+    If it is, return the redirection path
+    """
+    tx = None
+    try:
+        tx = w3.eth.get_transaction(inputData)
+    except:
+        pass
+    if tx:
+        return '/transaction/{}'.format(inputData)
+
+def checkIfAddr(inputData):
+    """ Call a web3 func to check if the response exist
+    If it is, return the redirection path
+    """
+    addr = None
+    try:
+        addr = w3.eth.get_balance(inputData)
+    except:
+        pass
+    if addr:
+        return '/address/{}'.format(inputData)
+
+def checkIfBlockN(inputData):
+    """ Call a web3 func to check if the response exist
+        If it is, return the redirection path
+    """
+    block = None
+    try:
+        inputData = int(request.form['search'])
+        block = w3.eth.get_block(inputData)
+    except:
+        pass
+    if block:
+        return '/block/{}'.format(inputData)
+    
+def checkIncomingReq(input_data):
+    """ Check for the incoming request.
+        Post request from the FORM, return:
+    
+        Call a func to check if its a tx (/transaction/<hash>)
+        Call a func to check if its a balance (/balance/<address>)
+        Call a func to check if its a block (/block/<int:block_number>)
+    """
+    inputData = HexStr(input_data)
+    tx = checkIfTx(inputData)
+    if tx:
+        return tx
+    addr = checkIfAddr(inputData)
+    if addr:
+        return addr
+    block = checkIfBlockN(inputData)
+    if block:
+        return block
+
+
+
