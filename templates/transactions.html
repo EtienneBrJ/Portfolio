@@ -22,11 +22,11 @@
                 <tr>
                     <td class="col-md-1"  title={{ last_txn[i].hash | fromHex }}>
                         {{ last_txn[i].hash | fromHex | cutter }}
-                      </td>
+                    </td>
                     <td class="col-md-1">{{ last_block[0].timestamp | since }}</td>
                     <td class="col-md-1" title={{ last_txn[i].hash | fromHex }}>{{ last_txn[i].from | cutter}}</td>
                     <td class="col-md-1" title={{ last_txn[i].hash | fromHex }}>{{ last_txn[i].to | cutter }}</td>
-                    <td class="col-md-1">{{ last_txn[i].value | fromWei}} eth</td>
+                    <td class="col-md-1">{{ last_txn[i].value | fromWei }} eth</td>
                 </tr>
             </tbody>
             {% endfor %}

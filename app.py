@@ -39,7 +39,7 @@ def block(block_number=None):
     """ Block page """
     if block_number:
         info_block = w3.eth.get_block(block_number)
-        return render_template('block.html', block_number=block_number, info_block=info_block)
+        return render_template('block.html', block=info_block, miners=config.dict_miners)
     return render_template('blocks.html', last_blocks=getlatestBlocks(10), miners=config.dict_miners)
 
 @app.route('/transactions/')
@@ -48,7 +48,7 @@ def transaction(hash=None):
     """ Tx page """
     if hash:
         tx = w3.eth.get_transaction(hash)
-        return render_template('transaction.html', hash=hash, tx=tx)
+        return render_template('transaction.html', tx=tx, last_block=getlatestBlocks(1))
     return render_template('transactions.html', last_txn=getlatestTxn(10), last_block=getlatestBlocks(1))
     
 
