@@ -4,8 +4,8 @@
 <h4>Transaction block details</h4>
 <p>Txn hash : {{ tx.get('hash') | fromHex | cutter }}</p>
 <p>Age : {{ last_block[0].get('timestamp') | since }}</p>
-<p>From : {{ tx.get('from') | fromHex | cutter }}</p>
-<p>To : {{ tx.get('to') | fromHex | cutter }}</p>
+<p>From : {{ tx.get('from') | cutter }}</p>
+<p>To : {{ tx.get('to') | cutter }}</p>
 <p>Amount : {{ tx.get('value') | fromWei }} eth</p>
 
 {% endblock %}

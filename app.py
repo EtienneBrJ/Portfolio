@@ -3,13 +3,13 @@
 
     Defining routes of the web application
 """
+import config
 from eth_typing.encoding import HexStr
 from werkzeug.utils import redirect
-import config
 from filters_builder import checkSeconds, fromTimestampToNow
 from web3 import Web3
 from flask import Flask, render_template, request, redirect
-from funcs import getlatestBlocks, getlatestTxn, checkIncomingReq
+from funcs import getEthInfos, getlatestBlocks, getlatestTxn, checkIncomingReq
 
 ws_provider = Web3.WebsocketProvider(config.MAINNET_WSS)
 w3 = Web3(ws_provider)
@@ -31,7 +31,9 @@ def index():
         search_url = checkIncomingReq(request.form['search'])
         if search_url:
             return redirect(search_url)
-    return render_template('index.html', last_blocks=getlatestBlocks(10), last_txn=getlatestTxn(10), miners=config.dict_miners)
+    return render_template('index.html', last_blocks=getlatestBlocks(10),
+                            last_txn=getlatestTxn(10), miners=config.dict_miners,
+                            price=getEthInfos())
 
 @app.route('/blocks/')
 @app.route('/block/<int:block_number>')

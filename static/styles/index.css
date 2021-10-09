@@ -1,3 +1,15 @@
+body {
+  background-color: hsl(0, 0%, 94%)
+}
+
+blockquote div{
+  display: flex;
+}
+
+.table-hover tbody tr:hover td {
+  background: rgb(68, 65, 64);
+  color: white;
+}
 footer {
   position: relative;
   height: 55px;
@@ -11,6 +23,11 @@ footer {
   right: 18px;
 }
 
+.dataContent {
+  display: flex;
+}
+
+/* Display the loading page full screen */
 div#loading {
   width: auto;
   height: 100vh;

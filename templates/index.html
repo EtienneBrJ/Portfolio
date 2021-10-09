@@ -1,69 +1,85 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+<link href="{{ url_for('static', filename='styles/index.css')}}" rel="stylesheet">
+
 
 <blockquote class="blockquote m-4">
-  <p>Ethereum Blockchain /Mainnet</p>
+  <div>Ethereum Blockchain
+    <p>/Current Price : ${{ price['ethereum']['usd'] }}</p>
+    <p>/Market Cap : ${{ price['ethereum']['usd_market_cap'] }}</p>
+    <p>/24h Volume: ${{ price['ethereum']['usd_24h_vol'] }}</p>
+  </div>
 </blockquote>
 
-<div class="col-xs-6">
-  <h2 class="sub-header"></h2>
-  <div class="table-responsive-sm">
-    <table class="table table-dark table-hover">
-      <thead>
-        <tr>
-          <th class="col-md-1">Block number</th>
-          <th class="col-md-1">Age</th>
-          <th class="col-md-1">Transactions</th>
-          <th class="col-md-1">Miner</th>
-        </tr>
-      </thead>
-      {% for i in range(last_blocks| length) %}
-      <tbody>
-        <tr class="col-md-1">
-          <td>{{ last_blocks[i].number }}</td>
-          <td class="col-md-1">{{ last_blocks[i].timestamp | since }}</td>
-          <td class="col-md-1">{{ last_blocks[i].transactions | length }}</td>
-          <td class="col-md-1 ">
-                              {% if last_blocks[i].miner.lower() in miners %}
-                              {{ miners[last_blocks[i].miner.lower()] }}
-                              {% else %}
-                              {{ last_blocks[i].miner.lower() | cutter }}
-                              {% endif %}
+<div class="dataContent">
+
+  <div class="container half">
+    <div class="shadow-4 rounded-6 bg-dark overflow-hidden">
+      <table class="table table-hover text-white table-borderless">
+        <thead class="text-center">
+          <th>
+            <p>Block number</p>
+          </th>
+          <th>
+            <p>Transactions</p>
+          </th>
+          <th>
+            <p>Miner</p>
+          </th>
+        </thead>
+        {% for i in range(last_blocks| length) %}
+        <tbody class="text-center">
+          <td>
+            <div class="d-flex flex-column align-items-center">
+              <p class="mb-0">{{ last_blocks[i].number }}</p>
+              <p class="small text-muted mb-0">{{ last_blocks[i].timestamp | since }}</p>
+            </div>
           </td>
-        </tr>
-      </tbody>
-      {% endfor %}
-    </table>
+          <td>
+            <div>
+              <p>{{ last_blocks[i].transactions | length }}</p>
+            </div>
+          </td>
+          <td>
+            {% if last_blocks[i].miner.lower() in miners %}
+            {{ miners[last_blocks[i].miner.lower()] }}
+            {% else %}
+            {{ last_blocks[i].miner.lower() | cutter }}
+            {% endif %}
+          </td>
+        </tbody>
+        {% endfor %}
+      </table>
+    </div>
   </div>
+
+  <div class="container half">
+    <div class="shadow-4 rounded-6 bg-dark overflow-hidden">
+      <table class="table table-hover text-white table-borderless">
+        <thead class="text-center">
+          <th><p>Txn hash</p></th>
+          <th><p>From</p></th>
+          <th><p>To</p></th>
+          <th><p>Amount</p> </th>
+        </thead>
+        {% for i in range(last_txn| length) %}
+        <tbody class="text-center">
+          <td>
+            <div class="d-flex flex-column align-items-center">
+              <p class="mb-0" title={{ last_txn[i].hash | fromHex }}>{{ last_txn[i].hash | fromHex | cutter }}</p>
+              <p class="small text-muted mb-0">{{ last_blocks[0].timestamp | since }}</p>
+            </div>
+          </td>
+
+          <td title={{ last_txn[i].hash | fromHex }}>{{ last_txn[i].from | cutter}}</td>
+          <td title={{ last_txn[i].hash | fromHex }}>{{ last_txn[i].to | cutter }}</td>
+          <td>{{ last_txn[i].value | fromWei}} Ether</td>
+        </tbody>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+
 </div>
-
-<div class="col-xs-6">
-  <h2 class="sub-header"></h2>
-  <class class="table-responsive">
-    <table class="table table-dark table-hover">
-      <thead>
-        <th class="col-md-1">Txn hash</th>
-        <th class="col-md-1">Age</th>
-        <th class="col-md-1">From</th>
-        <th class="col-md-1">To</th>
-        <th class="col-md-1">Amount</th>
-      </thead>
-      {% for i in range(last_txn| length) %}
-      <tbody>
-        <tr>
-          <td class="col-md-1" title={{ last_txn[i].hash | fromHex }}>{{ last_txn[i].hash | fromHex | cutter }}</td>
-          <td class="col-md-1">{{ last_blocks[0].timestamp | since }}</td>
-          <td class="col-md-1" title={{ last_txn[i].hash | fromHex }}>{{ last_txn[i].from | cutter}}</td>
-          <td class="col-md-1" title={{ last_txn[i].hash | fromHex }}>{{ last_txn[i].to | cutter }}</td>
-          <td class="col-md-1">{{ last_txn[i].value | fromWei}} Ether</td>
-        </tr>
-      </tbody>
-      {% endfor %}
-    </table>
-  </class>
-</div>
-
-
-
 {% endblock %}
