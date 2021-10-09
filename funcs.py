@@ -3,9 +3,9 @@
 """
 import config
 from web3 import Web3
-from flask import redirect, request
+from flask import request, flash, redirect
 from eth_typing.encoding import HexStr
-
+from pycoingecko import CoinGeckoAPI
 
 
 ws_provider = Web3.WebsocketProvider(config.MAINNET_WSS)
@@ -49,7 +49,7 @@ def checkIfAddr(inputData):
     """
     addr = None
     try:
-        addr = w3.eth.get_balance(inputData)
+        addr = w3.isAddress(inputData)
     except:
         pass
     if addr:
@@ -77,15 +77,31 @@ def checkIncomingReq(input_data):
         Call a func to check if its a block (/block/<int:block_number>)
     """
     inputData = HexStr(input_data)
-    tx = checkIfTx(inputData)
+    try:
+        tx = checkIfTx(inputData)
+    except:
+        flash('Invalid input')
+        redirect('/')
     if tx:
         return tx
-    addr = checkIfAddr(inputData)
+    try:
+        addr = checkIfAddr(inputData)
+    except:
+        flash('Invalid input')
+        redirect('/')
     if addr:
         return addr
-    block = checkIfBlockN(inputData)
+    try:
+        block = checkIfBlockN(inputData)
+    except:
+        flash('Invalid input')
+        redirect('/')
     if block:
         return block
 
+def getEthInfos():
+    """ Use Coick Gecko API to get some infos on Eth """
 
-
+    cg = CoinGeckoAPI()
+    eth_infos = cg.get_price(ids='ethereum', vs_currencies='usd', include_market_cap=True, include_24hr_vol=True)
+    return eth_infos
