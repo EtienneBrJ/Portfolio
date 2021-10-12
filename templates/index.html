@@ -24,7 +24,8 @@
         <tbody class="text-center">
           <td>
             <div class="d-flex flex-column align-items-center">
-              <p class="mb-0">{{ last_blocks[i].number }}</p>
+              <a class="mb-0 text-decoration-none" href={{ url_for('block', block_number=last_blocks[i].number) }}>{{ last_blocks[i].number
+                }}</a>
               <p class="small text-muted mb-0">{{ last_blocks[i].timestamp | since }}</p>
             </div>
           </td>
@@ -34,11 +35,13 @@
             </div>
           </td>
           <td>
-            {% if last_blocks[i].miner.lower() in miners %}
-            {{ miners[last_blocks[i].miner.lower()] }}
-            {% else %}
-            {{ last_blocks[i].miner.lower() | cutter }}
-            {% endif %}
+            <a href={{ url_for('address', hexa_address=last_blocks[i].miner) }}>{% if last_blocks[i].miner.lower() in
+              miners %}
+              {{ miners[last_blocks[i].miner.lower()] }}
+              {% else %}
+              {{ last_blocks[i].miner.lower() | cutter }}
+              {% endif %}
+            </a>
           </td>
         </tbody>
         {% endfor %}
@@ -67,12 +70,17 @@
         <tbody class="text-center">
           <td>
             <div class="d-flex flex-column align-items-center">
-              <p class="mb-0" title={{ last_txn[i].hash | fromHex }}>{{ last_txn[i].hash | fromHex | cutter }}</p>
+              <a class="mb-0" href={{ url_for('transaction', hash=last_txn[i].hash | fromHex) }}>{{ last_txn[i].hash |
+                fromHex | cutter }}</a>
               <p class="small text-muted mb-0">{{ last_blocks[0].timestamp | since }}</p>
             </div>
           </td>
-          <td title={{ last_txn[i].hash | fromHex }}>{{ last_txn[i].from | cutter}}</td>
-          <td title={{ last_txn[i].hash | fromHex }}>{{ last_txn[i].to | cutter }}</td>
+          <td title={{ last_txn[i].hash | fromHex }}>
+            <a href={{ url_for('address', hexa_address=last_txn[i].from) }}>{{ last_txn[i].from | cutter}}</a>
+          </td>
+          <td title={{ last_txn[i].hash | fromHex }}>
+            <a href={{ url_for('address', hexa_address=last_txn[i].from) }}>{{ last_txn[i].to | cutter}}</a>
+          </td>
           <td>{{ last_txn[i].value | fromWei}} Ether</td>
         </tbody>
         {% endfor %}

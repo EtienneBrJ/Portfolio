@@ -29,7 +29,8 @@
         <tbody class="text-center">
             <td>
                 <div class="d-flex flex-column align-items-center">
-                    <p class="mb-0">{{ last_block.number }}</p>
+                    <a href={{ url_for('block', block_number=last_block.number) }} class="mb-0">{{ last_block.number
+                        }}</a>
                     <p class="small text-muted mb-0">{{ last_block.timestamp | since }}</p>
                 </div>
             </td>
@@ -42,11 +43,13 @@
                 <p>{{ last_block.uncles | length }}</p>
             </td>
             <td>
-                {% if last_block.miner.lower() in miners %}
-                {{ miners[last_block.miner.lower()] }}
-                {% else %}
-                {{ last_block.miner.lower() | cutter }}
-                {% endif %}
+                <a href={{ url_for('address', hexa_address=last_block.miner) }}>
+                    {% if last_block.miner.lower() in miners %}
+                    {{ miners[last_block.miner.lower()] }}
+                    {% else %}
+                    {{ last_block.miner.lower() | cutter }}
+                    {% endif %}
+                </a>
             </td>
             <td>
                 <p>{{ last_block.gasUsed }}</p>
