@@ -35,34 +35,46 @@ def index():
                             last_txn=getlatestTxn(10), miners=config.dict_miners,
                             price=getEthInfos())
 
-@app.route('/blocks/')
-@app.route('/block/<int:block_number>')
+@app.route('/blocks/', methods=["POST", "GET"])
+@app.route('/block/<int:block_number>', methods=["POST", "GET"])
 def block(block_number=None):
     """ Block page """
+    if request.method == 'POST':
+        search_url = checkIncomingReq(request.form['search'])
+        if search_url:
+            return redirect(search_url)
     if block_number:
         info_block = w3.eth.get_block(block_number)
-        return render_template('block.html', block=info_block, miners=config.dict_miners)
-    return render_template('blocks.html', last_blocks=getlatestBlocks(10), miners=config.dict_miners)
+        return render_template('block.html', last_block=info_block, miners=config.dict_miners, price=getEthInfos())
+    return render_template('blocks.html', last_blocks=getlatestBlocks(10), miners=config.dict_miners, price=getEthInfos())
 
-@app.route('/transactions/')
-@app.route('/transaction/<hash>')
+@app.route('/transactions/', methods=["POST", "GET"])
+@app.route('/transaction/<hash>', methods=["POST", "GET"])
 def transaction(hash=None):
     """ Tx page """
+    if request.method == 'POST':
+        search_url = checkIncomingReq(request.form['search'])
+        if search_url:
+            return redirect(search_url)
     if hash:
         tx = w3.eth.get_transaction(hash)
-        return render_template('transaction.html', tx=tx, last_block=getlatestBlocks(1))
-    return render_template('transactions.html', last_txn=getlatestTxn(10), last_block=getlatestBlocks(1))
+        return render_template('transaction.html', last_txn=getlatestTxn(1), last_block=getlatestBlocks(1), price=getEthInfos())
+    return render_template('transactions.html', last_txn=getlatestTxn(10), last_block=getlatestBlocks(1), price=getEthInfos())
     
 
 
-@app.route('/address/')
-@app.route('/address/<hexa_address>')
+@app.route('/address/', methods=["POST", "GET"])
+@app.route('/address/<hexa_address>', methods=["POST", "GET"])
 def address(hexa_address=None):
     """ Address page """
+    if request.method == 'POST':
+        search_url = checkIncomingReq(request.form['search'])
+        if search_url:
+            return redirect(search_url)
     if hexa_address:
         weiBalance = w3.eth.get_balance(hexa_address)
-        return render_template('address.html', hexa_address=hexa_address, balance=weiBalance)
-    return render_template('search_address.html')
+        return render_template('address.html', hexa_address=hexa_address, balance=weiBalance, price=getEthInfos())
+    return render_template('layout.html', price=getEthInfos())
 
 # Template filters (Jinja2)
 @app.template_filter('since')

@@ -48,25 +48,62 @@
               <a class="nav-link m-1" aria-current="page" href="/address">Address</a>
             </li>
           </ul>
-          <form method="POST" class="d-flex">
-            <input name="search" class="form-control me-2" type="search"
-              placeholder="Search for a tx, address or block number" aria-label="Search">
-            <button class="btn btn-outline-light" type="submit">Search</button>
-          </form>
+          <button class="btn btn-outline-light nav-link m-1 " aria-current="page" href="/address">Login</button>
+
         </div>
       </div>
     </nav>
 
+    <!-- Header content: Eth infos, search bar -->
+
+    <div class="container m-4">
+      <div>
+        <h3>Ethereum Blockchain Explorer</h3>
+          <p class="m-0 h6">Current Price : ${{ price['ethereum']['usd'] }}</p>
+          <p class="m-0 h6">Market Cap : ${{ price['ethereum']['usd_market_cap'] }}</p>
+          <p class="m-0 h6">24h Volume: ${{ price['ethereum']['usd_24h_vol'] }}</p>
+      </div>
+    </div>
+    <!-- -->
+    <div class="container search-bar m-4">
+      <form method="POST" class="d-flex">
+        <input name="search" class="form-control me-2 rounded-4" type="search"
+          placeholder="Search for a transaction hash, address or block number" aria-label="Search">
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
+    </div>
+
+
+    <!-- Content -->
+
     {% block content %}
     {% endblock %}
 
-    <footer>
-      <div class="textFooter">
-        Made with
-        <img src="/static/images/iconmonstr-favorite-3-16.png" alt="Little red heart logo">
-        by Etienne
+    <!-- Footer -->
+    <footer class="bg-dark text-center text-white">
+      <!-- Grid container -->
+      <div class="container p-4 pb-0">
+        <!-- Section: Social media -->
+        <section class="mb-4">
+          <!-- Github -->
+          <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/EtienneBrJ" target="_blank"
+            role="button"><i class="fab fa-github"></i></a>
+          <!-- Linkedin -->
+          <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/in/etienne-brun-06187a205/"
+            target="_blank" role="button"><i class="fab fa-linkedin-in"></i></a>
+        </section>
       </div>
+      <!-- Grid container -->
+      <!-- Copyright -->
+      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2021 Copyright:
+        <a class="text-white" href="https://titixplorer-awftd.ondigitalocean.app/">https://titixplorer-awftd.ondigitalocean.app/</a>
+      </div>
+      <!-- Copyright -->
     </footer>
+
   </div>
   <div id="loading"></div>
   <script type="text/javascript">
@@ -75,9 +112,6 @@
       $("#loading").show();
     }
   </script>
-
-
-
 </body>
 
 </html>

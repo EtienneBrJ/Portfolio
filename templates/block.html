@@ -3,16 +3,55 @@
 
 {% block content %}
 
-<h4>Block details section</h4>
-<div>
-    <p>Block number : {{ block.get('number') }}</p>
-    <p>Age : {{ block.get('timestamp') | since }}</p>
-    <p>Difficulty : {{ block.get('difficulty') }}</p>
-    <p>Transactions : {{ block.get('transactions') | length }}</p>
-    <p>Miner : {% if block.miner.lower() in miners %}
-        {{ miners[block.miner.lower()] }}
-        {% else %}
-        {{ block.miner.lower() }}
-        {% endif %}</p>
+<div class="m-4">
+    <h5>Ethereum Mainnet /Block</h5>
+</div>
+
+<div class="shadow-4 rounded-6 m-4 bg-dark overflow-hidden">
+    <table class="table table-hover text-white table-borderless">
+        <thead class="text-center">
+            <th>
+                <p>Block number</p>
+            </th>
+            <th>
+                <p>Transactions</p>
+            </th>
+            <th>
+                <p>Uncle</p>
+            </th>
+            <th>
+                <p>Miner</p>
+            </th>
+            <th>
+                <p>Gas used</p>
+            </th>
+        </thead>
+        <tbody class="text-center">
+            <td>
+                <div class="d-flex flex-column align-items-center">
+                    <p class="mb-0">{{ last_block.number }}</p>
+                    <p class="small text-muted mb-0">{{ last_block.timestamp | since }}</p>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <p>{{ last_block.transactions | length }}</p>
+                </div>
+            </td>
+            <td>
+                <p>{{ last_block.uncles | length }}</p>
+            </td>
+            <td>
+                {% if last_block.miner.lower() in miners %}
+                {{ miners[last_block.miner.lower()] }}
+                {% else %}
+                {{ last_block.miner.lower() | cutter }}
+                {% endif %}
+            </td>
+            <td>
+                <p>{{ last_block.gasUsed }}</p>
+            </td>
+        </tbody>
+    </table>
 </div>
 {% endblock %}

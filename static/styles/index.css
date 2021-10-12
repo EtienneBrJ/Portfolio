@@ -1,31 +1,14 @@
 body {
-  background-color: hsl(0, 0%, 94%)
+  background-color: hsl(0, 0%, 94%);
 }
 
-blockquote div{
-  display: flex;
-}
 
 .table-hover tbody tr:hover td {
   background: rgb(68, 65, 64);
   color: white;
 }
-footer {
-  position: relative;
-  height: 55px;
-  border-top: 1px solid grey;
-}
 
-.textFooter {
-  font-size: 16px;
-  position: absolute;
-  bottom: 0px;
-  right: 18px;
-}
 
-.dataContent {
-  display: flex;
-}
 
 /* Display the loading page full screen */
 div#loading {
@@ -35,3 +18,11 @@ div#loading {
   background: url(/static/images/load.jpg) no-repeat center;
   background-color: white;
   }
+
+/* Search bar */
+
+.search-bar form {
+  height: 55px;
+  max-width: 60%;
+  margin: auto;
+}

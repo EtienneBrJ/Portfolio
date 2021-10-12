@@ -4,15 +4,7 @@
 <link href="{{ url_for('static', filename='styles/index.css')}}" rel="stylesheet">
 
 
-<blockquote class="blockquote m-4">
-  <div>Ethereum Blockchain
-    <p>/Current Price : ${{ price['ethereum']['usd'] }}</p>
-    <p>/Market Cap : ${{ price['ethereum']['usd_market_cap'] }}</p>
-    <p>/24h Volume: ${{ price['ethereum']['usd_24h_vol'] }}</p>
-  </div>
-</blockquote>
-
-<div class="dataContent">
+<div class="dataContent m-5 d-flex">
 
   <div class="container half">
     <div class="shadow-4 rounded-6 bg-dark overflow-hidden">
@@ -58,10 +50,18 @@
     <div class="shadow-4 rounded-6 bg-dark overflow-hidden">
       <table class="table table-hover text-white table-borderless">
         <thead class="text-center">
-          <th><p>Txn hash</p></th>
-          <th><p>From</p></th>
-          <th><p>To</p></th>
-          <th><p>Amount</p> </th>
+          <th>
+            <p>Txn hash</p>
+          </th>
+          <th>
+            <p>From</p>
+          </th>
+          <th>
+            <p>To</p>
+          </th>
+          <th>
+            <p>Amount</p>
+          </th>
         </thead>
         {% for i in range(last_txn| length) %}
         <tbody class="text-center">
@@ -71,7 +71,6 @@
               <p class="small text-muted mb-0">{{ last_blocks[0].timestamp | since }}</p>
             </div>
           </td>
-
           <td title={{ last_txn[i].hash | fromHex }}>{{ last_txn[i].from | cutter}}</td>
           <td title={{ last_txn[i].hash | fromHex }}>{{ last_txn[i].to | cutter }}</td>
           <td>{{ last_txn[i].value | fromWei}} Ether</td>

@@ -1,11 +1,42 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<h4>Transaction block details</h4>
-<p>Txn hash : {{ tx.get('hash') | fromHex | cutter }}</p>
-<p>Age : {{ last_block[0].get('timestamp') | since }}</p>
-<p>From : {{ tx.get('from') | cutter }}</p>
-<p>To : {{ tx.get('to') | cutter }}</p>
-<p>Amount : {{ tx.get('value') | fromWei }} eth</p>
+
+<div class="m-4">
+    <h5>Ethereum Mainnet /Transaction</h5>
+</div>
+
+<div class="shadow-4 rounded-6 bg-dark overflow-hidden">
+    <table class="table table-hover text-white table-borderless">
+        <thead class="text-center">
+            <th>
+                <p>Txn hash</p>
+            </th>
+            <th>
+                <p>From</p>
+            </th>
+            <th>
+                <p>To</p>
+            </th>
+            <th>
+                <p>Amount</p>
+            </th>
+        </thead>
+        {% for i in range(last_txn| length) %}
+        <tbody class="text-center">
+            <td>
+                <div class="d-flex flex-column align-items-center">
+                    <p class="mb-0" title={{ last_txn[i].hash | fromHex }}>{{ last_txn[i].hash | fromHex | cutter }}
+                    </p>
+                    <p class="small text-muted mb-0">{{ last_block[0].timestamp | since }}</p>
+                </div>
+            </td>
+            <td title={{ last_txn[i].hash | fromHex }}>{{ last_txn[i].from | cutter}}</td>
+            <td title={{ last_txn[i].hash | fromHex }}>{{ last_txn[i].to | cutter }}</td>
+            <td>{{ last_txn[i].value | fromWei}} Ether</td>
+        </tbody>
+        {% endfor %}
+    </table>
+</div>
 
 {% endblock %}
