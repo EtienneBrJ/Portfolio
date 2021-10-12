@@ -2,22 +2,20 @@ body {
   background-color: hsl(0, 0%, 94%);
 }
 
-
 .table-hover tbody tr:hover td {
   background: rgb(68, 65, 64);
   color: white;
 }
 
-
-
 /* Display the loading page full screen */
+
 div#loading {
   width: auto;
   height: 100vh;
   display: none;
   background: url(/static/images/load.jpg) no-repeat center;
   background-color: white;
-  }
+}
 
 /* Search bar */
 
@@ -25,4 +23,18 @@ div#loading {
   height: 55px;
   max-width: 60%;
   margin: auto;
+}
+
+.search-bar input {
+  border-radius: 0px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+
+}
+
+.search-bar button {
+  border-radius: 0px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+
 }
