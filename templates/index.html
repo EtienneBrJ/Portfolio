@@ -20,6 +20,9 @@
           <th>
             <p class="m-1">Miner</p>
           </th>
+          <th>
+            <p class="m-1">Burnt fees</p>
+          </th>
         </thead>
         {% for i in range(last_blocks| length) %}
         <tbody class="text-center">
@@ -47,6 +50,9 @@
               </a>
             </div>
           </td>
+          <td>
+            <p class="pt-10px">{{ last_blocks[i].gasUsed | burntFees(last_blocks[i].baseFeePerGas) }} Ether</p>
+        </td>
         </tbody>
         {% endfor %}
       </table>
