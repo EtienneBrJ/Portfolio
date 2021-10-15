@@ -1,18 +1,66 @@
-body {
-  background-color: hsl(0, 0%, 94%);
+html {
+  height: 100%;
 }
+body {
+  min-height: 100%;
+}
+
+body {
+  background-color: ;
+}
+
+body .iconMenu {
+  position: fixed;
+  top: 20px;
+  left: 25px;
+  background-color:white;
+  border-radius: 60px;
+}
+
+body .iconMenu img {
+  height: 55px;
+  width: 55px;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div.search-bar form input {
+  border-right: none;
+  border-color: #91b9f2;
+  color: #91b9f2;
+}
+
+div.search-bar form button {
+  background-color: #91b9f2;
+}
+
+.half .table {
+  margin-bottom: 0px;
+  background-color: rgba(236, 240, 241, 0.8);
+}
+
+.half thead th p {
+  color: #4f4f4f;
+}
+
+.pt-10px {
+  padding-top: 10px;
+}
+.rem08 {
+  font-size: 0.8rem;
+}
+
+
 
 /* Tables */
-.table-hover tbody tr:hover td {
-  background: rgb(68, 65, 64);
-  color: white;
-}
 
-td, td a {
-  color: white;
-}
-
-/* td a:hover {
+/* .table-hover tbody tr:hover td {
+  background: #91b9f2;
   color: white;
 } */
 
@@ -29,8 +77,8 @@ div#loading {
 /* Search bar */
 
 .search-bar form {
-  height: 55px;
-  max-width: 60%;
+  height: 50px;
+  max-width: 45%;
   margin: auto;
 }
 

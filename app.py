@@ -9,7 +9,9 @@ from werkzeug.utils import redirect
 from filters_builder import checkSeconds, fromTimestampToNow
 from web3 import Web3
 from flask import Flask, render_template, request, redirect
-from funcs import getEthInfos, getlatestBlocks, getlatestTxn, checkIncomingReq
+from funcs import getEthInfos, getlatestBlocks, getlatestTxn, checkIncomingReq, getAllTxsFees
+import math
+
 
 ws_provider = Web3.WebsocketProvider(config.MAINNET_WSS)
 w3 = Web3(ws_provider)
@@ -58,8 +60,10 @@ def transaction(hash=None):
             return redirect(search_url)
     if hash:
         tx = w3.eth.get_transaction(hash)
-        return render_template('transaction.html', last_txn=getlatestTxn(1), last_block=getlatestBlocks(1), price=getEthInfos())
-    return render_template('transactions.html', last_txn=getlatestTxn(10), last_block=getlatestBlocks(1), price=getEthInfos())
+        receipt = w3.eth.get_transaction_receipt(hash)
+        txBlock = w3.eth.get_block(tx.blockHash)
+        return render_template('transaction.html', tx=tx, txBlock=txBlock , receipt=receipt, price=getEthInfos())
+    return render_template('transactions.html', last_txn=getlatestTxn(10), last_block=w3.eth.get_block('latest'), price=getEthInfos())
     
 
 
@@ -94,12 +98,12 @@ def fromHexBytes(hex):
     return hex.hex()
 
 @app.template_filter('fromWei')
-def fromHexBytes(Wei):
+def fromWei(Wei):
     """ Convert Wei into Ether
         Return O if Eth < 0.01 else
     """
     toEth = w3.fromWei(Wei, 'ether')
-    return round(toEth, 4) if toEth >= 0.01 else 0
+    return round(toEth, 4) if toEth >= 0.0001 else 0
 
 
 @app.template_filter('cutter')
@@ -107,6 +111,47 @@ def cutLongStr(longStr):
     """ Cut long string and return the first 9 chars + '...'
     """
     return longStr[:9]+ '...'
+
+@app.template_filter('comma')
+def commaInt(n):
+    """ Format int:
+        Put a comma after each 3 digits starting from the right
+    """
+    return '{:,}'.format(n)
+
+@app.template_filter('toGwei')
+def weiToGwei(n):
+    """ Return an int that display baseFeePerGas in Gwei
+    """
+    # Convert form wei to Gwei
+    return int(n / 1000000000)
+
+@app.template_filter('burntFees')
+def calculateBurntFees(a, b):
+    """ Multiply gasUsed and baseFeePerGas of a block to find the Burnt fees
+    Return the fees rounded at 4 decimals
+    """
+    n = a * b
+    # Convert from wei to Eth
+    e = n / 1000000000000000000
+    return round(e, 4)
+
+@app.template_filter('getTxFees')
+def getTxFees(gasPrice, hash):
+    """ Call web3 to get the receipt of a transaction to
+        return the tx fees of this transaction
+    """
+    receipt = w3.eth.get_transaction_receipt(hash)
+    tx_fees = (gasPrice / 1000000000000000000)* receipt.gasUsed
+    return round(tx_fees, 6)
+
+@app.template_filter('getReward')
+def getReward(block_number, ethBurnt):
+    """ Calculate the Reward of a block using his block_number 
+    """
+    allTxsFees = getAllTxsFees(block_number)
+    return 2 + (allTxsFees - ethBurnt)
+
 
 if __name__ == "__main__":
     """main func()"""

@@ -2,43 +2,76 @@
 
 {% block content %}
 
-<div class="m-4">
-    <h5>Ethereum Mainnet /Transaction</h5>
-</div>
 
-<div class="shadow-4 m-4 rounded-6 bg-dark overflow-hidden">
-    <table class="table table-hover text-white table-borderless">
-        <thead class="text-center">
-            <th>
-                <p>Txn hash</p>
-            </th>
-            <th>
-                <p>From</p>
-            </th>
-            <th>
-                <p>To</p>
-            </th>
-            <th>
-                <p>Amount</p>
-            </th>
-        </thead>
-        <tbody class="text-center">
-            <td>
-                <div class="d-flex flex-column align-items-center">
-                    <a class="mb-0" href={{ url_for('transaction', hash=last_txn[0].hash | fromHex) }}>{{
-                        last_txn[0].hash |
-                        fromHex | cutter }}</a>
-                    <p class="small text-muted mb-0">{{ last_block[0].timestamp | since }}</p>
-                </div>
-            </td>
-            <td title={{ last_txn[0].hash | fromHex }}>
-                <a href={{ url_for('address', hexa_address=last_txn[0].from) }}>{{ last_txn[0].from | cutter}}</a>
-            </td>
-            <td title={{ last_txn[0].hash | fromHex }}>
-                <a href={{ url_for('address', hexa_address=last_txn[0].to) }}>{{ last_txn[0].to | cutter}}</a>
-            </td>
-            <td>{{ last_txn[0].value | fromWei}} Ether</td>
-        </tbody>
-    </table>
+<div class="container half">
+    <a class="nav-link" aria-current="page" href="/transactions">../transaction/{{ tx.hash | fromHex }}</a>
+    <div class="shadow-4 rounded-6 overflow-hidden">
+        <table class="table table-borderless table-hover">
+            <thead class="text-center">
+                <th>
+                    <p class="m-1">Txn hash</p>
+                </th>
+                <th>
+                    <p class="m-1">From</p>
+                </th>
+                <th>
+                    <p class="m-1">To</p>
+                </th>
+                <th>
+                    <p class="m-1">Amount</p>
+                </th>
+                <th>
+                    <p class="m-1">Gas used</p>
+                </th>
+                <th>
+                    <p class="m-1">Gas price</p>
+                </th>
+                <th>
+                    <p class="m-1">Transaction fees</p>
+                </th>
+            </thead>
+            <tbody class="text-center">
+                <td>
+                    <div class="d-flex flex-column align-items-center">
+                        <a class="mb-0 rem08" href={{ url_for('transaction', hash=tx.hash | fromHex) }}>{{
+                            tx.hash |
+                            fromHex | cutter }}</a>
+                        <p class="small text-muted mb-0">{{ txBlock.timestamp | since }}</p>
+                    </div>
+                </td>
+                <td title={{ tx.hash }}>
+                    <div class="pt-10px">
+                        <a href={{ url_for('address', hexa_address=tx.from) }}>{{ tx.from |
+                            cutter}}</a>
+                    </div>
+                </td>
+                <td title={{ tx.hash }}>
+                    <div class="pt-10px">
+                        <a href={{ url_for('address', hexa_address=tx.from) }}>{{ tx.to | cutter}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div class="pt-10px">
+                        <p>{{ tx.value | fromWei}} Ether</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="pt-10px">
+                        <p>{{ receipt.gasUsed }} </p>
+                    </div>
+                </td>
+                <td>
+                    <div class="pt-10px">
+                        <p>{{ tx.gasPrice / 1000000000 }} Gwei</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="pt-10px">
+                        <p>{{ tx.gasPrice / 1000000000000000000 * receipt.gasUsed }} Ether</p>
+                    </div>
+                </td>
+            </tbody>
+        </table>
+    </div>
 </div>
 {% endblock %}

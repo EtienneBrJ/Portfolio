@@ -2,46 +2,71 @@
 
 {% block content %}
 
-<div class="m-4">
-    <h5>Ethereum Mainnet /Transactions</h5>
-</div>
+<div class="container half">
+    <a class="nav-link" aria-current="page" href="/">../transactions</a>
+    <div class="shadow-4 rounded-6 overflow-hidden">
+        <table class="table">
+            <thead class="text-center">
+                <th>
+                    <p class="m-1">Txn hash</p>
+                </th>
+                <th>
+                    <p class="m-1">From</p>
+                </th>
+                <th>
+                    <p class="m-1">To</p>
+                </th>
+                <th>
+                    <p class="m-1">Amount</p>
+                </th>
+                <th>
+                    <p class="m-1">Gas price</p>
+                </th>
+                <th>
+                    <p class="m-1">Transaction fees</p>
+                </th>
 
-<div class="shadow-4 m-4 rounded-6 bg-dark overflow-hidden">
-    <table class="table table-hover text-white table-borderless">
-        <thead class="text-center">
-            <th>
-                <p>Txn hash</p>
-            </th>
-            <th>
-                <p>From</p>
-            </th>
-            <th>
-                <p>To</p>
-            </th>
-            <th>
-                <p>Amount</p>
-            </th>
-        </thead>
-        {% for i in range(last_txn| length) %}
-        <tbody class="text-center">
-            <td>
-                <div class="d-flex flex-column align-items-center">
-                    <a class="mb-0" href={{ url_for('transaction', hash=last_txn[i].hash | fromHex) }}>{{
-                        last_txn[i].hash |
-                        fromHex | cutter }}</a>
-                    <p class="small text-muted mb-0">{{ last_block[0].timestamp | since }}</p>
-                </div>
-            </td>
-            <td title={{ last_txn[i].hash | fromHex }}>
-                <a href={{ url_for('address', hexa_address=last_txn[i].from) }}>{{ last_txn[i].from | cutter}}</a>
-            </td>
-            <td title={{ last_txn[i].hash | fromHex }}>
-                <a href={{ url_for('address', hexa_address=last_txn[i].from) }}>{{ last_txn[i].to | cutter}}</a>
-            </td>
-            <td>{{ last_txn[i].value | fromWei}} Ether</td>
-        </tbody>
-        {% endfor %}
-    </table>
-</div>
+            </thead>
+            {% for i in range(last_txn| length) %}
+            <tbody class="text-center">
+                <td>
+                    <div class="d-flex flex-column align-items-center">
+                        <a class="mb-0 rem08" href={{ url_for('transaction', hash=last_txn[i].hash | fromHex) }}>{{
+                            last_txn[i].hash |
+                            fromHex | cutter }}</a>
+                        <p class="small text-muted mb-0">{{ last_block.timestamp | since }}</p>
+                    </div>
+                </td>
+                <td title={{ last_txn[i].hash | fromHex }}>
+                    <div class="pt-10px">
+                        <a href={{ url_for('address', hexa_address=last_txn[i].from) }}>{{ last_txn[i].from |
+                            cutter}}</a>
+                    </div>
+                </td>
+                <td title={{ last_txn[i].hash | fromHex }}>
+                    <div class="pt-10px">
+                        <a href={{ url_for('address', hexa_address=last_txn[i].from) }}>{{ last_txn[i].to | cutter}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div class="pt-10px">
+                        <p>{{ last_txn[i].value | fromWei}} Ether</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="pt-10px">
+                        <p>{{ last_txn[i].gasPrice | toGwei }} Gwei</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="pt-10px">
+                        <p>{{ last_txn[i].gasPrice | getTxFees(last_txn[i].hash)}} Ether</p>
+                    </div>
+                </td>
 
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+</div>
 {% endblock %}

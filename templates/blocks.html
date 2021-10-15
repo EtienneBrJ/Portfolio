@@ -2,60 +2,84 @@
 
 
 {% block content %}
-<div class="m-4">
-    <h5>Ethereum Mainnet /Blocks</h5>
-</div>
 
-<div class="shadow-4 rounded-6 m-4 bg-dark overflow-hidden">
-    <table class="table table-hover text-white table-borderless">
-        <thead class="text-center">
-            <th>
-                <p>Block number</p>
-            </th>
-            <th>
-                <p>Transactions</p>
-            </th>
-            <th>
-                <p>Uncle</p>
-            </th>
-            <th>
-                <p>Miner</p>
-            </th>
-            <th>
-                <p>Gas used</p>
-            </th>
-        </thead>
-        {% for i in range(last_blocks| length) %}
-        <tbody class="text-center">
-            <td>
-                <div class="d-flex flex-column align-items-center">
-                    <a class="mb-0" href={{ url_for('block', block_number=last_blocks[i].number) }}>{{ last_blocks[i].number }}</a>
-                    <p class="small text-muted mb-0">{{ last_blocks[i].timestamp | since }}</p>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <p>{{ last_blocks[i].transactions | length }}</p>
-                </div>
-            </td>
-            <td>
-                <p>{{ last_blocks[i].uncles | length }}</p>
-            </td>
-            <td>
-                <a href={{ url_for('address', hexa_address=last_blocks[i].miner) }}>
-                    {% if last_blocks[i].miner.lower() in miners %}
-                    {{ miners[last_blocks[i].miner.lower()] }}
-                    {% else %}
-                    {{ last_blocks[i].miner.lower() | cutter }}
-                    {% endif %}
-                </a>
-            </td>
-            <td>
-                <p>{{ last_blocks[i].gasUsed }}</p>
-            </td>
-        </tbody>
-        {% endfor %}
-    </table>
-</div>
+<div class="container half">
+    <a class="nav-link" aria-current="page" href="/">../blocks</a>
+    <div class="shadow-4 rounded-6 overflow-hidden">
+        <table class="table">
+            <thead class="text-center">
+                <th>
+                    <p class="m-1">Block number</p>
+                </th>
+                <th>
+                    <p class="m-1">Transactions</p>
+                </th>
+                <th>
+                    <p class="m-1">Uncle</p>
+                </th>
+                <th>
+                    <p class="m-1">Miner</p>
+                </th>
+                <th>
+                    <p class="m-1">Burnt fees</p>
+                </th>
+                <th>
+                    <p class="m-1">baseFeePerGas</p>
+                </th>
+                <th>
+                    <p class="m-1">Gas used</p>
+                </th>
 
+                <th>
+                    <p class="m-1">Difficulty</p>
+                </th>
+            </thead>
+            {% for i in range(last_blocks| length) %}
+            <tbody class="text-center">
+                <td>
+                    <div class="d-flex flex-column align-items-center">
+                        <a class="mb-0 text-decoration-none" href={{ url_for('block',
+                            block_number=last_blocks[i].number) }}>{{
+                            last_blocks[i].number
+                            }}</a>
+                        <p class="small text-muted mb-0">{{ last_blocks[i].timestamp | since }}</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="pt-10px">
+                        <p>{{ last_blocks[i].transactions | length }}</p>
+                    </div>
+                </td>
+                <td>
+                    <p class="pt-10px">{{ last_blocks[i].uncles | length }}</p>
+                </td>
+                <td>
+                    <div class="pt-10px">
+                        <a href={{ url_for('address', hexa_address=last_blocks[i].miner) }}>{% if
+                            last_blocks[i].miner.lower() in
+                            miners %}
+                            {{ miners[last_blocks[i].miner.lower()] }}
+                            {% else %}
+                            {{ last_blocks[i].miner.lower() | cutter }}
+                            {% endif %}
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <p class="pt-10px">{{ last_blocks[i].gasUsed | burntFees(last_blocks[i].baseFeePerGas) }} Ether</p>
+                </td>
+                <td>
+                    <p class="pt-10px">{{ last_blocks[i].baseFeePerGas | toGwei }} Gwei </p>
+                </td>
+                <td>
+                    <p class="pt-10px">{{ last_blocks[i].gasUsed | comma }}</p>
+                </td>
+                <td>
+                    <p class="pt-10px">{{ last_blocks[i].difficulty | comma }}</p>
+                </td>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+</div>
 {% endblock %}

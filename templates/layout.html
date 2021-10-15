@@ -28,82 +28,75 @@
 
 <body>
   <div id="contents">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid testing">
+    <!-- Toggle menu -->
+    <div class="iconMenu shadow"><a href="/" onclick="loading();">
         <img src="/static/images/eth_diamond_logo.svg" height="49" alt="Logo Eth">
-        <a class="navbar-brand" href="/" onclick="loading();">TitiXplorer</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link m-1" aria-current="page" href="/blocks" onclick="loading();">Blocks</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link m-1" aria-current="page" href="/transactions" onclick="loading();">Txn</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link m-1" aria-current="page" href="/address">Address</a>
-            </li>
-          </ul>
-          <button class="btn btn-outline-light nav-link m-1 " aria-current="page" href="/address">Login</button>
+      </a>
+    </div>
+    <!-- Menu -->
+    <div style="display: none;">
+      <a class="navbar-brand" href="/" onclick="loading();">TitiXplorer</a>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link m-1" aria-current="page" href="/blocks" onclick="loading();">Blocks</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link m-1" aria-current="page" href="/transactions" onclick="loading();">Txn</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link m-1" aria-current="page" href="/address">Address</a>
+        </li>
+      </ul>
+      <button class="btn nav-link m-1 " aria-current="page" href="/address">Login</button>
+    </div>
 
+  <!-- Header content: Eth infos, search bar -->
+
+  <div class="container m-5 mt-4">
+    <h3 class="text-center">Ethereum Blockchain Explorer</h3>
+
+    <div class="header">
+      <p class="m-2 h6">Current Price : ${{ price['ethereum']['usd'] | comma }} </p>
+      <p class="m-2 h6">Market Cap : ${{ price['ethereum']['usd_market_cap'] | comma }} </p>
+      <p class="m-2 h6">24h Volume: ${{ price['ethereum']['usd_24h_vol'] | comma }} </p>
+    </div>
+  </div>
+  <!-- -->
+  <div class="container search-bar m-5">
+    <form method="POST" class="d-flex">
+      <input name="search" class="form-control" type="search"
+        placeholder="Search for a transaction hash, address or block number" aria-label="Search">
+      <button type="submit" class="btn btn-primary">
+        <i class="fas fa-search"></i>
+      </button>
+    </form>
+  </div>
+
+
+  <!-- Content -->
+
+  {% block content %}
+  {% endblock %}
+
+  <!-- Footer -->
+  <!-- <footer class="footer text-center">
+    <div class="container p-3 pb-0">
+      <section class="mb-2">
+        <a class="btn btn-outline-dark btn-floating m-1" href="https://github.com/EtienneBrJ" target="_blank"
+          role="button"><i class="fab fa-github"></i></a>
+        <a class="btn btn-outline-dark btn-floating m-1" href="https://www.linkedin.com/in/etienne-brun-06187a205/"
+          target="_blank" role="button"><i class="fab fa-linkedin-in"></i></a>
+      </section>
+      <div class="mb-0">
+        <div class="text-center">
+          © 2021 Copyright:
+          <a href="https://titixplorer-awftd.ondigitalocean.app/">https://titixplorer-awftd.ondigitalocean.app/</a>
         </div>
-      </div>
-    </nav>
-
-    <!-- Header content: Eth infos, search bar -->
-
-    <div class="container m-4">
-      <div>
-        <h3>Ethereum Blockchain Explorer</h3>
-          <p class="m-0 h6">Current Price : ${{ price['ethereum']['usd'] }}</p>
-          <p class="m-0 h6">Market Cap : ${{ price['ethereum']['usd_market_cap'] }}</p>
-          <p class="m-0 h6">24h Volume: ${{ price['ethereum']['usd_24h_vol'] }}</p>
+        
       </div>
     </div>
-    <!-- -->
-    <div class="container search-bar p-4">
-      <form method="POST" class="d-flex">
-        <input name="search" class="form-control" type="search"
-          placeholder="Search for a transaction hash, address or block number" aria-label="Search">
-        <button type="submit" class="btn btn-primary">
-          <i class="fas fa-search"></i>
-        </button>
-      </form>
-    </div>
-
-
-    <!-- Content -->
-
-    {% block content %}
-    {% endblock %}
-
-    <!-- Footer -->
-    <footer class="bg-dark text-center text-white">
-      <!-- Grid container -->
-      <div class="container p-4 pb-0">
-        <!-- Section: Social media -->
-        <section class="mb-4">
-          <!-- Github -->
-          <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/EtienneBrJ" target="_blank"
-            role="button"><i class="fab fa-github"></i></a>
-          <!-- Linkedin -->
-          <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/in/etienne-brun-06187a205/"
-            target="_blank" role="button"><i class="fab fa-linkedin-in"></i></a>
-        </section>
-      </div>
-      <!-- Grid container -->
-      <!-- Copyright -->
-      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-        © 2021 Copyright:
-        <a class="text-white" href="https://titixplorer-awftd.ondigitalocean.app/">https://titixplorer-awftd.ondigitalocean.app/</a>
-      </div>
-      <!-- Copyright -->
-    </footer>
-
+  </footer> -->
+  </div>
   </div>
   <div id="loading"></div>
   <script type="text/javascript">

@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """ Module regrouping all the main functions
 """
+from logging import error
 import config
 from web3 import Web3
 from flask import request, flash, redirect
@@ -12,7 +13,7 @@ ws_provider = Web3.WebsocketProvider(config.MAINNET_WSS)
 w3 = Web3(ws_provider)
 
 
-def getlatestBlocks(n=5):
+def getlatestBlocks(n):
     """ Put in a list (append: add at the end of the list)
         the block_info of the n last blocks
     """
@@ -22,13 +23,16 @@ def getlatestBlocks(n=5):
     return last_blocks
 
 
-def getlatestTxn(n=5):
+def getlatestTxn(n):
     """ Put in a list (append: add at the end of the list)
         the nth transactions informations of the last mined block
     """
     last_txn = []
     for idx in range(n):
-        last_txn.append(w3.eth.get_transaction_by_block('latest', idx))
+        try:
+            last_txn.append(w3.eth.get_transaction_by_block('latest', idx))
+        except:
+            raise 'Erreur transac 0 not found'
     return last_txn
 
 def checkIfTx(inputData):
@@ -49,11 +53,13 @@ def checkIfAddr(inputData):
     """
     addr = None
     try:
-        addr = w3.isAddress(inputData)
+        # convert the input to checksum address coz of web3 isAddress func
+        addr = w3.toChecksumAddress(inputData)
+        w3.isAddress(addr)
     except:
         pass
     if addr:
-        return '/address/{}'.format(inputData)
+        return '/address/{}'.format(addr)
 
 def checkIfBlockN(inputData):
     """ Call a web3 func to check if the response exist
@@ -105,3 +111,16 @@ def getEthInfos():
     cg = CoinGeckoAPI()
     eth_infos = cg.get_price(ids='ethereum', vs_currencies='usd', include_market_cap=True, include_24hr_vol=True)
     return eth_infos
+
+def getAllTxsFees(nBlock):
+    """ Call web3 to get the all txs fees of a block
+    """
+    count = 0
+    block = w3.eth.get_block(nBlock)
+    for i in range(len(block.transactions)):
+        tx = w3.eth.get_transaction(block.transactions[i])
+        receipt = w3.eth.get_transaction_receipt(block.transactions[i])
+        count += receipt.gasUsed * tx.gasPrice
+    #Convert total txs_fees in wei to Eth
+    # Return the txs_fees of nBlock
+    return count / 1000000000000000000
