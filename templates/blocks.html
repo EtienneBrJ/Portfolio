@@ -9,29 +9,31 @@
         <table class="table">
             <thead class="text-center">
                 <th>
-                    <p class="m-1">Block number</p>
+                    <p title="Lenght of the blockchain" class="m-1">Block Height</p>
                 </th>
                 <th>
-                    <p class="m-1">Transactions</p>
+                    <p title="Transactions in this block" class="m-1">Transactions</p>
                 </th>
                 <th>
-                    <p class="m-1">Uncle</p>
+                    <p title="Block mined at the same time as the current block" class="m-1">Uncle</p>
                 </th>
                 <th>
-                    <p class="m-1">Miner</p>
+                    <p title="Miner who successfully include the block onto the blockchain" class="m-1">Miner</p>
                 </th>
                 <th>
-                    <p class="m-1"><i style="color: rgb(218, 70, 70);" class="fas fa-fire-alt "> </i>Burnt fees</p>
+                    <p title="Represents the minimum gasUsed multiplier required for a tx to be included in a block"
+                        class="m-1">baseFeePerGas</p>
                 </th>
                 <th>
-                    <p class="m-1">baseFeePerGas</p>
+                    <p title="Total gas used in the block" class="m-1">Gas used</p>
                 </th>
                 <th>
-                    <p class="m-1">Gas used</p>
+                    <p title="Represents the part of the tx fee that is burnt: baseFeePerGas * gasUsed" class="m-1"><i
+                            style="color: rgb(218, 70, 70);" class="fas fa-fire-alt "></i> Burnt fees</p>
                 </th>
-
                 <th>
-                    <p class="m-1">Difficulty</p>
+                    <p title="The amount of effort required to mine a new block. The difficulty algorithm may adjust according to time"
+                        class="m-1">Difficulty</p>
                 </th>
             </thead>
             {% for i in range(last_blocks| length) %}
@@ -65,14 +67,15 @@
                         </a>
                     </div>
                 </td>
-                <td>
-                    <p class="pt-10px">{{ last_blocks[i].gasUsed | burntFees(last_blocks[i].baseFeePerGas) }} Ether</p>
-                </td>
+
                 <td>
                     <p class="pt-10px">{{ last_blocks[i].baseFeePerGas | toGwei }} Gwei </p>
                 </td>
                 <td>
                     <p class="pt-10px">{{ last_blocks[i].gasUsed | comma }}</p>
+                </td>
+                <td>
+                    <p class="pt-10px">{{ last_blocks[i].gasUsed | burntFees(last_blocks[i].baseFeePerGas) }} Ether</p>
                 </td>
                 <td>
                     <p class="pt-10px">{{ last_blocks[i].difficulty | comma }}</p>

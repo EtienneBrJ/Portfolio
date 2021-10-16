@@ -8,7 +8,9 @@
   <link rel="icon" href="/static/images/eth_favicon.ico">
 
   <!-- Bootstrap CSS -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link href="{{ url_for('static', filename='styles/index.css')}}" rel="stylesheet">
   <!-- Font Awesome -->
@@ -34,14 +36,14 @@
     <!-- Header content: Eth infos, search bar -->
     <div class="container-fluid p-4">
       <h3 class="text-center">Ethereum Blockchain Explorer</h3>
-      <div class="header">
+      <div class="header p-1">
         <p class="m-2 h6">Current Price: ${{ price['ethereum']['usd'] | comma }} </p>
         <p class="m-2 h6">Market Cap: ${{ price['ethereum']['usd_market_cap'] | comma }} </p>
         <p class="m-2 h6">24h Volume: ${{ price['ethereum']['usd_24h_vol'] | comma }} </p>
       </div>
     </div>
     <!-- -->
-    <div class="container-fluid search-bar p-4">
+    <div class="container-fluid search-bar p-3">
       <form method="POST" class="d-flex">
         <input name="search" class="form-control" type="search"
           placeholder="Search for a transaction hash, address or block number" aria-label="Search">
@@ -54,22 +56,112 @@
     {% block content %}
     {% endblock %}
     <!-- Footer -->
-    <!-- <footer class="footer text-center">
-    <div class="container p-3 pb-0">
-      <section class="mb-2">
-        <a class="btn btn-outline-dark btn-floating m-1" href="https://github.com/EtienneBrJ" target="_blank"
-          role="button"><i class="fab fa-github"></i></a>
-        <a class="btn btn-outline-dark btn-floating m-1" href="https://www.linkedin.com/in/etienne-brun-06187a205/"
-          target="_blank" role="button"><i class="fab fa-linkedin-in"></i></a>
-      </section>
-      <div class="mb-0">
-        <div class="text-center">
-          © 2021 Copyright:
-          <a href="https://titixplorer-awftd.ondigitalocean.app/">https://titixplorer-awftd.ondigitalocean.app/</a>
+    <!-- Remove the container if you want to extend the Footer to full width. -->
+    <div class="my-5s">
+      <!-- Footer -->
+      <footer class="text-center text-white" style="background-color: #3f51b5">
+        <!-- Grid container -->
+        <div class="container">
+          <!-- Section: Links -->
+          <section class="mt-5">
+            <!-- Grid row-->
+            <div class="row text-center d-flex justify-content-center pt-5">
+              <!-- Grid column -->
+              <div class="col-md-2">
+                <h6 class="text-uppercase font-weight-bold">
+                  <a href="#!" class="text-white">About us</a>
+                </h6>
+              </div>
+              <!-- Grid column -->
+
+              <!-- Grid column -->
+              <div class="col-md-2">
+                <h6 class="text-uppercase font-weight-bold">
+                  <a href="#!" class="text-white">Products</a>
+                </h6>
+              </div>
+              <!-- Grid column -->
+
+              <!-- Grid column -->
+              <div class="col-md-2">
+                <h6 class="text-uppercase font-weight-bold">
+                  <a href="#!" class="text-white">Awards</a>
+                </h6>
+              </div>
+              <!-- Grid column -->
+
+              <!-- Grid column -->
+              <div class="col-md-2">
+                <h6 class="text-uppercase font-weight-bold">
+                  <a href="#!" class="text-white">Help</a>
+                </h6>
+              </div>
+              <!-- Grid column -->
+
+              <!-- Grid column -->
+              <div class="col-md-2">
+                <h6 class="text-uppercase font-weight-bold">
+                  <a href="#!" class="text-white">Contact</a>
+                </h6>
+              </div>
+              <!-- Grid column -->
+            </div>
+            <!-- Grid row-->
+          </section>
+          <!-- Section: Links -->
+
+          <hr class="my-5" />
+
+          <!-- Section: Text -->
+          <section class="mb-5">
+            <div class="row d-flex justify-content-center">
+              <div class="col-lg-8">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt
+                  distinctio earum repellat quaerat voluptatibus placeat nam,
+                  commodi optio pariatur est quia magnam eum harum corrupti
+                  dicta, aliquam sequi voluptate quas.
+                </p>
+              </div>
+            </div>
+          </section>
+          <!-- Section: Text -->
+
+          <!-- Section: Social -->
+          <section class="text-center mb-5">
+            <a href="" class="text-white me-4">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="" class="text-white me-4">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="" class="text-white me-4">
+              <i class="fab fa-google"></i>
+            </a>
+            <a href="" class="text-white me-4">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="" class="text-white me-4">
+              <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="" class="text-white me-4">
+              <i class="fab fa-github"></i>
+            </a>
+          </section>
+          <!-- Section: Social -->
         </div>
-      </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+          © 2020 Copyright:
+          <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        </div>
+        <!-- Copyright -->
+      </footer>
+      <!-- Footer -->
     </div>
-  </footer> -->
+    <!-- End of .container -->
   </div>
   </div>
   <div id="loading"></div>
