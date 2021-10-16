@@ -1,27 +1,25 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<link href="{{ url_for('static', filename='styles/index.css')}}" rel="stylesheet">
-
 
 <div class="dataContent m-5 d-flex">
 
-  <div class="container half">
+  <div class="container half ">
     <a class="nav-link" aria-current="page" href="/blocks" onclick="loading();">/blocks</a>
     <div class="shadow-4 rounded-6 overflow-hidden">
       <table class="table">
         <thead class="text-center">
           <th>
-            <p class="m-1">Block number</p>
+            <p title="Lenght of the blockchain"class="m-1">Block Height</p>
           </th>
           <th>
-            <p class="m-1">Transactions</p>
+            <p title="Transactions in this block" class="m-1">Transactions</p>
           </th>
           <th>
-            <p class="m-1">Miner</p>
+            <p title="Miner who successfully include the block onto the blockchain" class="m-1">Miner</p>
           </th>
           <th>
-            <p class="m-1">Burnt fees</p>
+            <p title="This represents the part of the tx fee that is burnt: baseFeePerGas * gasUsed" class="m-1"><i style="color: rgb(218, 70, 70);" class="fas fa-fire-alt "></i> Burnt Fees</p>
           </th>
         </thead>
         {% for i in range(last_blocks| length) %}
@@ -74,7 +72,7 @@
             <p class="m-1">To</p>
           </th>
           <th>
-            <p class="m-1">Amount</p>
+            <p class="m-1">Amount <i class="fab fa-ethereum"></i></p>
           </th>
         </thead>
         {% for i in range(last_txn| length) %}

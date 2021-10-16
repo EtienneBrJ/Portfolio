@@ -21,16 +21,13 @@
                     <p class="m-1">Miner</p>
                 </th>
                 <th>
-                    <p class="m-1">Reward</p>
-                </th>
-                <th>
                     <p class="m-1">BaseFeePerGas</p>
                 </th>
                 <th>
                     <p class="m-1">Gas used</p>
                 </th>
                 <th>
-                    <p class="m-1">Burnt fees</p>
+                    <p class="m-1"><i style="color: rgb(218, 70, 70);" class="fas fa-fire-alt "> </i>Burnt fees</p>
                 </th>
                 <th>
                     <p class="m-1">Difficulty</p>
@@ -65,9 +62,6 @@
                             {% endif %}
                         </a>
                     </div>
-                </td>
-                <td>
-                    <p class="pt-10px">{{ last_block.number | getReward(last_block.gasUsed | burntFees(last_block.baseFeePerGas))}}</p>
                 </td>
                 <td>
                     <p class="pt-10px">{{ last_block.baseFeePerGas | toGwei }} Gwei</p>
