@@ -2,78 +2,107 @@
 
 {% block content %}
 
-
-<div class="container half">
+<div class="container-fluid d-flex flex-column justify-content-center">
     <a class="nav-link" aria-current="page" href="/transactions">../transaction/{{ tx.hash | fromHex }}</a>
-    <div class="shadow-4 rounded-6 overflow-hidden">
-        <table class="table table-borderless table-hover">
-            <thead class="text-center">
-                <th>
-                    <p title="A TxHash or transaction hash is a unique 66 characters identifier that is generated whenever a transaction is executed"
-                        class="m-1">Txn hash</p>
-                </th>
-                <th>
-                    <p title="The sending party of the transaction" class="m-1">From</p>
-                  </th>
-                <th>
-                    <p title="The receiving party of the transaction" class="m-1">To</p>
+    <div class="shadow-4 rounded-6 overflow-hidden m-4">
+        <div class="m-3 padding_left_">
 
-                </th>
-                <th>
-                    <p title="The value being transacted in Ether" class="m-1">Value <i class="fab fa-ethereum"></i></p>
-                </th>
-                <th>
-                    <p title="The exact units of gas that was used for the transaction" class="m-1">Gas used</p>
-                </th>
-                <th>
-                    <p title="Cost per unit of gas specified for the transaction in Gwei. The higher the gas price the higher chance of getting in a block" class="m-1">Gas price</p>
-                </th>
-                <th>
-                    <p title="Amount paid to the miner for processing the transaction" class="m-1">Transaction fees</p>
-                </th>
-            </thead>
-            <tbody class="text-center">
-                <td>
-                    <div class="d-flex flex-column align-items-center">
-                        <a class="mb-0 rem08" href={{ url_for('transaction', hash=tx.hash | fromHex) }}>{{
-                            tx.hash |
-                            fromHex | cutter }}</a>
-                        <p class="small text-muted mb-0">{{ txBlock.timestamp | since }}</p>
-                    </div>
-                </td>
-                <td title={{ tx.hash }}>
-                    <div class="pt-10px">
-                        <a href={{ url_for('address', hexa_address=tx.from) }}>{{ tx.from |
-                            cutter}}</a>
-                    </div>
-                </td>
-                <td title={{ tx.hash }}>
-                    <div class="pt-10px">
-                        <a href={{ url_for('address', hexa_address=tx.from) }}>{{ tx.to | cutter}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div class="pt-10px">
-                        <p>{{ tx.value | fromWei}} Ether</p>
-                    </div>
-                </td>
-                <td>
-                    <div class="pt-10px">
-                        <p>{{ receipt.gasUsed }} </p>
-                    </div>
-                </td>
-                <td>
-                    <div class="pt-10px">
-                        <p>{{ tx.gasPrice / 1000000000 }} Gwei</p>
-                    </div>
-                </td>
-                <td>
-                    <div class="pt-10px">
-                        <p>{{ tx.gasPrice / 1000000000000000000 * receipt.gasUsed }} Ether</p>
-                    </div>
-                </td>
-            </tbody>
-        </table>
+            <div class="d-flex align-items-center container_module">
+                <div class="col-md-4 container_title">
+                    <p class="m-2 mb-0 info_title"
+                        title="A TxHash or transaction hash is a unique 66 characters identifier that is generated whenever a transaction is executed">
+                        Transaction hash :</p>
+                    <p class="m-2 mt-0 text-muted description fst-italic">A TxHash or transaction hash is a unique 66
+                        characters identifier that is generated whenever a transaction is executed</p>
+                </div>
+                <div class="col-md-2 container_value">
+                    <a  href={{ url_for('transaction', hash=tx.hash | fromHex) }}>
+                        {{ tx.hash | fromHex | cutter }}</a>
+                </div>
+            </div>
+
+
+            <div class="d-flex align-items-center container_module">
+                <div class="col-md-4 container_title">
+                    <p class="m-2 mb-0 info_title" title="Time since a block has been mined">Since :</p>
+                    <p class="m-2 mt-0 text-muted description fst-italic">Time since a block has been mined</p>
+                </div>
+                <div class="col-md-2 container_value">
+                    <p>{{ txBlock.timestamp | since }}</p>
+
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center container_module">
+                <div class="col-md-4 container_title">
+                    <p class="m-2 mb-0 info_title" title="The sending party of the transaction">From :</p>
+                    <p class="m-2 mt-0 text-muted description fst-italic">The sending party of the transaction</p>
+                </div>
+                <div class="col-md-2 container_value">
+                    <a href={{ url_for('address', hexa_address=tx.from) }}>{{ tx.from | cutter}}</a>
+
+                </div>
+            </div>
+            <div class="d-flex align-items-center container_module">
+                <div class="col-md-4 container_title">
+                    <p class="m-2 mb-0 info_title" title="The receiving party of the transaction">To :</p>
+                    <p class="m-2 mt-0 text-muted description fst-italic">The receiving party of the transaction</p>
+                </div>
+                <div class="col-md-2 container_value">
+                    <a href={{ url_for('address', hexa_address=tx.from) }}>{{ tx.to | cutter}}</a>
+
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center container_module">
+                <div class="col-md-4 container_title">
+                    <p class="m-2 mb-0 info_title" title="The value being transacted in Ether">Value <i
+                            class="fab fa-ethereum"></i></p>
+                    <p class="m-2 mt-0 text-muted description fst-italic">The value being transacted in Ether</p>
+                </div>
+                <div class="col-md-2 container_value">
+                    <p>{{ tx.value | fromWeiRounded(2) }} Ether</p>
+
+                </div>
+            </div>
+            <div class="d-flex align-items-center container_module">
+                <div class="col-md-4 container_title">
+                    <p class="m-2 mb-0 info_title" title="The exact units of gas that was used for the transaction">Gas
+                        used :</p>
+                    <p class="m-2 mt-0 text-muted description fst-italic">The exact units of gas that was used for the
+                        transaction</p>
+                </div>
+                <div class="col-md-2 container_value">
+                    <p>{{ receipt.gasUsed | comma }} </p>
+
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center container_module">
+                <div class="col-md-4 container_title">
+                    <p class="m-2 mb-0 info_title"
+                        title="Cost per unit of gas specified for the transaction in Gwei. The higher the gas price the higher chance of getting in a block">
+                        Gas price :</p>
+                    <p class="m-2 mt-0 text-muted description fst-italic">Cost per unit of gas specified for the
+                        transaction in Gwei. The higher the gas price the higher chance of getting in a block</p>
+                </div>
+                <div class="col-md-2 container_value">
+                    <p>{{ tx.gasPrice / 1000000000 }} Gwei</p>
+
+                </div>
+            </div>
+            <div class="d-flex align-items-center container_module">
+                <div class="col-md-4 container_title">
+                    <p class="m-2 mb-0 info_title" title="Amount paid to the miner for processing the transaction">
+                        Transactions fees :</p>
+                    <p class="m-2 mt-0 text-muted description fst-italic">Amount paid to the miner for processing the
+                        transaction</p>
+                </div>
+                <div class="col-md-2 container_value">
+                    <p>{{ tx.gasPrice / 1000000000000000000 * receipt.gasUsed }} Ether</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

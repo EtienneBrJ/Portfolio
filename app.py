@@ -4,13 +4,11 @@
     Defining routes of the web application
 """
 import config
-from eth_typing.encoding import HexStr
-from werkzeug.utils import redirect
-from filters_builder import checkSeconds, fromTimestampToNow
 from web3 import Web3
+from filters_builder import checkSeconds, fromTimestampToNow
 from flask import Flask, render_template, request, redirect
 from funcs import getEthInfos, getlatestBlocks, getlatestTxn, checkIncomingReq, getAllTxsFees
-import math
+from etherscan import callEtherScanAPI, getEtherInCirculation, getEtherLastPrice, getTotalEthNodes
 
 
 ws_provider = Web3.WebsocketProvider(config.MAINNET_WSS)
@@ -18,6 +16,13 @@ w3 = Web3(ws_provider)
 
 
 app = Flask(__name__)
+
+app.jinja_env.globals.update(getEtherInCirculation=getEtherInCirculation)
+app.jinja_env.globals.update(getTotalEthNodes=getTotalEthNodes)
+app.jinja_env.globals.update(getEtherLastPrice=getEtherLastPrice)
+app.jinja_env.globals.update(callEtherScanAPI=callEtherScanAPI)
+
+
 
 # Inbuilt function handling 404 error
 @app.errorhandler(404)
@@ -97,13 +102,13 @@ def fromHexBytes(hex):
     """
     return hex.hex()
 
-@app.template_filter('fromWei')
-def fromWei(Wei):
+@app.template_filter('fromWeiRounded')
+def fromWei(Wei, nRound):
     """ Convert Wei into Ether
         Return O if Eth < 0.01 else
     """
     toEth = w3.fromWei(Wei, 'ether')
-    return round(toEth, 4) if toEth >= 0.0001 else 0
+    return round(toEth, nRound)
 
 
 @app.template_filter('cutter')

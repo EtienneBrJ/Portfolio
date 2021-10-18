@@ -5,10 +5,6 @@ body {
   min-height: 100%;
 }
 
-body {
-  background-color: ;
-}
-
 body .iconMenu {
   position: fixed;
   top: 20px;
@@ -55,6 +51,9 @@ div.search-bar form button {
   font-size: 0.8rem;
 }
 
+/* Footer */
+
+
 
 
 /* Tables */
@@ -92,4 +91,21 @@ div#loading {
   border-radius: 0px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
+}
+
+
+/* Block, transactions template */
+
+.description {
+font-size: 0.8rem;
+}
+.padding_left_ {
+  padding-left: 50px;
+}
+.container_value a{
+  color: #4f4f4f;
+}
+.container_value p{
+  height: 100%;
+  margin: 0;
 }

@@ -2,12 +2,17 @@
 
 
 {% block content %}
+<link href="{{ url_for('static', filename='styles/address.css')}}" rel="stylesheet">
 
-Block details section
-<br/>
-Address : {{ hexa_address }}
-<br/>
+<div class="container-fluid balance m-4 text-center">
+    <div class="m-3">
+        <h4>Address : {{ hexa_address }}</h4>
+    </div>
+    <div class="m-3">
+        <span class="rounded-6">Balance : {{ balance | fromWeiRounded(2) }} <i class="fab fa-ethereum"></i></span> | 
+        <span class="rounded-6">Value : {{ balance | fromWeiRounded(0) * price['ethereum']['usd'] | int }} <i
+                class="fas fa-dollar-sign"></i></span>
+    </div>
 
-Balance of the address (Wei): {{ balance }}
-
+</div>
 {% endblock %}

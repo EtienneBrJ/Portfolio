@@ -32,7 +32,7 @@ def getlatestTxn(n):
         try:
             last_txn.append(w3.eth.get_transaction_by_block('latest', idx))
         except:
-            raise 'Erreur transac 0 not found'
+            last_txn.append(w3.eth.get_transaction_by_block(w3.eth.get_block_number() - 1, idx))
     return last_txn
 
 def checkIfTx(inputData):

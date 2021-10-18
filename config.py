@@ -1,6 +1,7 @@
 """ Configuration file """
 
 MAINNET_WSS = 'wss://mainnet.infura.io/ws/v3/f10f2701e41e4707a99a75f2b2723280'
+ETHERSCAN_KEY = 'QCSD9KTFBH1XRNSFEQB5ZC5BRPQZ3DPNGE'
 PROJECT_ID = ''
 PROJECT_SECRET = ''
 dict_miners = {

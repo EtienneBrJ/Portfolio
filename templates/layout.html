@@ -27,6 +27,8 @@
 
 <body>
 
+
+
   <div id="contents">
     <!-- Toggle menu -->
     <div class="iconMenu shadow"><a href="/" onclick="loading();">
@@ -34,12 +36,13 @@
       </a>
     </div>
     <!-- Header content: Eth infos, search bar -->
-    <div class="container-fluid p-4">
+    <div class="container-fluid p-4 overflow-hidden">
       <h3 class="text-center">Ethereum Blockchain Explorer</h3>
       <div class="header p-1">
-        <p class="m-2 h6">Current Price: ${{ price['ethereum']['usd'] | comma }} </p>
+        <p class="m-2 h6">Current Price: ${{ price['ethereum']['usd'] | int | comma }} </p>
         <p class="m-2 h6">Market Cap: ${{ price['ethereum']['usd_market_cap'] | comma }} </p>
         <p class="m-2 h6">24h Volume: ${{ price['ethereum']['usd_24h_vol'] | comma }} </p>
+        <!-- {{ callEtherScanAPI() }} -->
       </div>
     </div>
     <!-- -->
@@ -52,12 +55,13 @@
         </button>
       </form>
     </div>
+
     <!-- Content -->
     {% block content %}
     {% endblock %}
     <!-- Footer -->
     <!-- Remove the container if you want to extend the Footer to full width. -->
-    <div class="my-5s">
+    <div class="my-5">
       <!-- Footer -->
       <footer class="text-center text-white" style="background-color: #3f51b5">
         <!-- Grid container -->
@@ -172,5 +176,4 @@
     };
   </script>
 </body>
-
 </html>
