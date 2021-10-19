@@ -84,5 +84,11 @@
             {% endfor %}
         </table>
     </div>
+    <nav>
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href={{ url_for('block_paginate', block_number=last_blocks[9].number) }}>See 10 next blocks &nbsp;&nbsp;&nbsp;<i class="fas fa-long-arrow-alt-right"></i></a></li>
+            </li>
+        </ul>
+    </nav>
 </div>
 {% endblock %}
