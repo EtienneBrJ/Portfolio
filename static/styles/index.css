@@ -126,7 +126,6 @@ nav .pagination {
   justify-content: flex-end;
 }
 
-ul .page-item{
+ul .page-item .page-link{
   color: #4f4f4f;
-
 }
