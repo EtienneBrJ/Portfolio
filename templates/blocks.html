@@ -86,7 +86,8 @@
     </div>
     <nav>
         <ul class="pagination">
-            <li class="page-item"><a class="page-link" href={{ url_for('block_paginate', block_number=last_blocks[9].number) }}>See 10 next blocks &nbsp;&nbsp;&nbsp;<i class="fas fa-long-arrow-alt-right"></i></a></li>
+            <li class="page-item"><a class="page-link" href={{ url_for('paginate', block_number=last_blocks[0].number | int + 10) }}><i class="fas fa-long-arrow-alt-left"></i> &nbsp;&nbsp;&nbsp;See 10 previous blocks</a></li>
+            <li class="page-item"><a class="page-link" href={{ url_for('paginate', block_number=last_blocks[9].number | int - 1) }}>See 10 next blocks &nbsp;&nbsp;&nbsp;<i class="fas fa-long-arrow-alt-right"></i></a></li>
             </li>
         </ul>
     </nav>

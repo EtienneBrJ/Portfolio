@@ -7,7 +7,7 @@ import config
 from web3 import Web3
 from filters_builder import checkSeconds, fromTimestampToNow
 from flask import Flask, render_template, request, redirect
-from funcs import getEthInfos, getlatestBlocks, getlatestTxn, checkIncomingReq, getAllTxsFees, paginateBlock
+from funcs import getEthInfos, getlatestBlocks, getlatestTxn, checkIncomingReq, getAllTxsFees, paginateBlocks
 from etherscan import callEtherScanAPI, getEtherInCirculation, getEtherLastPrice, getTotalEthNodes
 
 
@@ -55,15 +55,15 @@ def block(block_number=None):
         return render_template('block.html', last_block=info_block, miners=config.dict_miners, price=getEthInfos())
     return render_template('blocks.html', last_blocks=getlatestBlocks(10), miners=config.dict_miners, price=getEthInfos())
 
-@app.route('/blocks/from/<int:block_number>', methods=["POST", "GET"])
-def block_paginate(block_number=None):
+@app.route('/blocks/<int:block_number>/paginate', methods=["POST", "GET"])
+def paginate(block_number=None):
     """ Pagination for blocks """
     if request.method == 'POST':
         search_url = checkIncomingReq(request.form['search'])
         if search_url:
             return redirect(search_url)
     if block_number:
-        return render_template('blocks.html', last_blocks=paginateBlock(10, block_number), miners=config.dict_miners, price=getEthInfos())
+        return render_template('blocks.html', last_blocks=paginateBlocks(10, block_number), miners=config.dict_miners, price=getEthInfos())
 
 @app.route('/transactions/', methods=["POST", "GET"])
 @app.route('/transaction/<hash>', methods=["POST", "GET"])
