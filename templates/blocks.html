@@ -49,7 +49,7 @@
                 </td>
                 <td>
                     <div class="pt-10px">
-                        <p>{{ last_blocks[i].transactions | length }}</p>
+                        <a href={{ url_for('getAllTxs', block_number=last_blocks[i].number) }}>{{ last_blocks[i].transactions | length }}</a>
                     </div>
                 </td>
                 <td>

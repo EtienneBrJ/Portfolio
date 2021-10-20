@@ -4,7 +4,7 @@
 {% block content %}
 
 <div class="container-fluid d-flex flex-column justify-content-center">
-    <a class="nav-link" aria-current="page" href="/blocks">../block/{{ last_block.number }}</a>
+    <a class="nav-link" aria-current="page" onclick="loading();" href="/blocks">../block/{{ last_block.number }}</a>
     <div class="shadow-4 rounded-6 overflow-hidden m-4">
         <div class="m-3 padding_left_">
 
@@ -116,8 +116,7 @@
                         title="The amount of effort required to mine a new block. The difficulty algorithm may adjust according to time">
                         Difficulty :</p>
                     <p class="m-2 mt-0 text-muted description fst-italic">The amount of effort required to mine a new
-                        block. The
-                        difficulty algorithm may adjust according to time</p>
+                        block. The difficulty algorithm may adjust according to time</p>
                 </div>
                 <div class="col-md-2 container_value">
                     <p>{{ last_block.difficulty | comma }}</p>
@@ -127,4 +126,13 @@
 
     </div>
 </div>
+<nav>
+    <ul class="pagination">
+        <li class="page-item"><a class="page-link" href={{ url_for('paginateSingleBlock', block_number=last_block.number | int
+                + 1) }}><i class="fas fa-long-arrow-alt-left"></i> &nbsp;&nbsp;&nbsp;See the previous block</a></li>
+        <li class="page-item"><a class="page-link" href={{ url_for('paginateSingleBlock', block_number=last_block.number | int
+                - 1) }}>See the next block &nbsp;&nbsp;&nbsp;<i class="fas fa-long-arrow-alt-right"></i></a></li>
+        </li>
+    </ul>
+</nav>
 {% endblock %}

@@ -29,40 +29,45 @@
                     <p title="Amount paid to the miner for processing the transaction" class="m-1">Transaction fees</p>
                 </th>
             </thead>
-            {% for i in range(last_txn| length) %}
+            {% for i in range(txs| length) %}
             <tbody class="text-center">
                 <td>
                     <div class="d-flex flex-column align-items-center">
-                        <a class="mb-0 rem08" href={{ url_for('transaction', hash=last_txn[i].hash | fromHex) }}>{{
-                            last_txn[i].hash |
+                        <a class="mb-0 rem08" href={{ url_for('transaction', hash=txs[i].hash | fromHex) }}>{{
+                            txs[i].hash |
                             fromHex | cutter }}</a>
+                        {% if last_block %}
                         <p class="small text-muted mb-0">{{ last_block.timestamp | since }}</p>
+                        {% endif %}
+                        {% if block %}
+                        <p class="small text-muted mb-0">{{ block.timestamp | since }}</p>
+                        {% endif %}
                     </div>
                 </td>
-                <td title={{ last_txn[i].hash | fromHex }}>
+                <td title={{ txs[i].hash | fromHex }}>
                     <div class="pt-10px">
-                        <a href={{ url_for('address', hexa_address=last_txn[i].from) }}>{{ last_txn[i].from |
+                        <a href={{ url_for('address', hexa_address=txs[i].from) }}>{{ txs[i].from |
                             cutter}}</a>
                     </div>
                 </td>
-                <td title={{ last_txn[i].hash | fromHex }}>
+                <td title={{ txs[i].hash | fromHex }}>
                     <div class="pt-10px">
-                        <a href={{ url_for('address', hexa_address=last_txn[i].from) }}>{{ last_txn[i].to | cutter}}</a>
+                        <a href={{ url_for('address', hexa_address=txs[i].from) }}>{{ txs[i].to | cutter}}</a>
                     </div>
                 </td>
                 <td>
                     <div class="pt-10px">
-                        <p>{{ last_txn[i].value | fromWeiRounded(4)}} Ether</p>
+                        <p>{{ txs[i].value | fromWeiRounded(4)}} Ether</p>
                     </div>
                 </td>
                 <td>
                     <div class="pt-10px">
-                        <p>{{ last_txn[i].gasPrice | toGwei }} Gwei</p>
+                        <p>{{ txs[i].gasPrice | toGwei }} Gwei</p>
                     </div>
                 </td>
                 <td>
                     <div class="pt-10px">
-                        <p>{{ last_txn[i].gasPrice | getTxFees(last_txn[i].hash)}} Ether</p>
+                        <p>{{ txs[i].gasPrice | getTxFees(txs[i].hash)}} Ether</p>
                     </div>
                 </td>
 

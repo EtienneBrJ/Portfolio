@@ -6,7 +6,13 @@
 
 <div class="container-fluid balance m-4 text-center">
     <div class="m-3">
-        <h4>Address : {{ hexa_address }}</h4>
+        {% if hexa_address.lower() in miners %}
+            <h4>{{ miners[hexa_address.lower()] }}</h4>
+            <p>{{ hexa_address.lower() }}</p>
+            {% else %}
+            <h4>{{ hexa_address.lower() }}</h4>
+            {% endif %}
+        <p></p>
     </div>
     <div class="m-3">
         <span class="rounded-6">Balance : {{ balance | fromWeiRounded(2) }} <i class="fab fa-ethereum"></i></span> | 

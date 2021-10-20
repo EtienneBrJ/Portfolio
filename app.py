@@ -39,7 +39,7 @@ def index():
         if search_url:
             return redirect(search_url)
     return render_template('index.html', last_blocks=getlatestBlocks(10),
-                            last_txn=getlatestTxn(10), miners=config.dict_miners,
+                            txs=getlatestTxn(10), miners=config.dict_miners,
                             price=getEthInfos())
 
 @app.route('/blocks/', methods=["POST", "GET"])
@@ -65,6 +65,27 @@ def paginate(block_number=None):
     if block_number:
         return render_template('blocks.html', last_blocks=paginateBlocks(10, block_number), miners=config.dict_miners, price=getEthInfos())
 
+@app.route('/block/<int:block_number>/paginate', methods=["POST", "GET"])
+def paginateSingleBlock(block_number=None):
+    """ Pagination for blocks """
+    if request.method == 'POST':
+        search_url = checkIncomingReq(request.form['search'])
+        if search_url:
+            return redirect(search_url)
+    if block_number:
+        return render_template('block.html', last_block=paginateBlocks(1, block_number), miners=config.dict_miners, price=getEthInfos())
+
+@app.route('/block/<int:block_number>/transactions', methods=["POST", "GET"])
+def getAllTxs(block_number=None):
+    """ Get all transactions for a selected block (HREF)"""
+    if block_number:
+        txs = []
+        block = w3.eth.get_block(block_number)
+        for i in range(len(block.transactions)):
+            txs.append(w3.eth.get_transaction(block.transactions[i]))
+        return render_template('transactions.html', txs=txs, block=block, price=getEthInfos())
+
+
 @app.route('/transactions/', methods=["POST", "GET"])
 @app.route('/transaction/<hash>', methods=["POST", "GET"])
 def transaction(hash=None):
@@ -78,7 +99,7 @@ def transaction(hash=None):
         receipt = w3.eth.get_transaction_receipt(hash)
         txBlock = w3.eth.get_block(tx.blockHash)
         return render_template('transaction.html', tx=tx, txBlock=txBlock , receipt=receipt, price=getEthInfos())
-    return render_template('transactions.html', last_txn=getlatestTxn(10), last_block=w3.eth.get_block('latest'), price=getEthInfos())
+    return render_template('transactions.html', txs=getlatestTxn(10), last_block=w3.eth.get_block('latest'), price=getEthInfos())
     
 
 
@@ -92,7 +113,7 @@ def address(hexa_address=None):
             return redirect(search_url)
     if hexa_address:
         weiBalance = w3.eth.get_balance(hexa_address)
-        return render_template('address.html', hexa_address=hexa_address, balance=weiBalance, price=getEthInfos())
+        return render_template('address.html', hexa_address=hexa_address, balance=weiBalance, price=getEthInfos(), miners=config.dict_miners)
     return render_template('layout.html', price=getEthInfos())
 
 # Template filters (Jinja2)

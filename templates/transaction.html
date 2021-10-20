@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="container-fluid d-flex flex-column justify-content-center">
-    <a class="nav-link" aria-current="page" href="/transactions">../transaction/{{ tx.hash | fromHex }}</a>
+    <a class="nav-link" aria-current="page" onclick="loading();" href="/transactions">../transaction/{{ tx.hash | fromHex }}</a>
     <div class="shadow-4 rounded-6 overflow-hidden m-4">
         <div class="m-3 padding_left_">
 
