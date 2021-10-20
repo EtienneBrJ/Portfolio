@@ -22,17 +22,7 @@ def getlatestBlocks(n):
         last_blocks.append(w3.eth.get_block(number))
     return last_blocks
 
-def paginateBlocks(n, block_number=None):
-    """ Paginate next n blocks
-        Return a list of block informations
-    """
-    if n == 1:
-        return w3.eth.get_block(block_number)
-    last_blocks = []
-    if block_number:
-        for number in range(block_number, block_number -n, -1):
-            last_blocks.append(w3.eth.get_block(number))
-        return last_blocks
+
 
 
 def getlatestTxn(n):
@@ -137,3 +127,12 @@ def getAllTxsFees(nBlock):
     # Return the txs_fees of nBlock
     return count / 1000000000000000000
 
+def paginateBlocks(n, block_number=None):
+    """ Paginate next n blocks
+        Return a list of block informations
+    """
+    last_blocks = []
+    if block_number:
+        for number in range(block_number, block_number -n, -1):
+            last_blocks.append(w3.eth.get_block(number))
+        return last_blocks

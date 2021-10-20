@@ -19,4 +19,3 @@ def fromTimestampToNow(timestamp):
     strDate = str(datetime.fromtimestamp(timestamp))
     blockDate=datetime.strptime(strDate, "%Y-%m-%d %H:%M:%S")
     return (datetime.now()-blockDate).seconds
-

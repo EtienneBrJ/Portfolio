@@ -65,16 +65,6 @@ def paginate(block_number=None):
     if block_number:
         return render_template('blocks.html', last_blocks=paginateBlocks(10, block_number), miners=config.dict_miners, price=getEthInfos())
 
-@app.route('/block/<int:block_number>/paginate', methods=["POST", "GET"])
-def paginateSingleBlock(block_number=None):
-    """ Pagination for blocks """
-    if request.method == 'POST':
-        search_url = checkIncomingReq(request.form['search'])
-        if search_url:
-            return redirect(search_url)
-    if block_number:
-        return render_template('block.html', last_block=paginateBlocks(1, block_number), miners=config.dict_miners, price=getEthInfos())
-
 @app.route('/block/<int:block_number>/transactions', methods=["POST", "GET"])
 def getAllTxs(block_number=None):
     """ Get all transactions for a selected block (HREF)"""
