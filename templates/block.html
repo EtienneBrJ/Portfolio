@@ -3,17 +3,17 @@
 
 {% block content %}
 
-<div class="container-fluid d-flex flex-column justify-content-center">
+<div class="container d-flex flex-column justify-content-center m-5 mb-3">
     <a class="nav-link" aria-current="page" onclick="loading();" href="/blocks">../block/{{ last_block.number }}</a>
-    <div class="shadow-4 rounded-6 overflow-hidden m-4">
-        <div class="m-3 padding_left_">
+    <div class="shadow-4 rounded-6 overflow-hidden m-4 data_container">
+        <div class="m-3">
 
             <div class="d-flex align-items-center container_module">
-                <div class="col-md-4 container_title">
+                <div class="col-md-6 container_title">
                     <p class="m-2 mb-0 info_title" title="Lenght of the blockchain">Block Height :</p>
                     <p class="m-2 mt-0 text-muted description fst-italic">Lenght of the blockchain</p>
                 </div>
-                <div class="col-md-2 container_value">
+                <div class="col-md-3 container_value">
                     <a onclick="loading();" href={{ url_for('block', block_number=last_block.number) }}>
                         {{ last_block.number | comma }}
                     </a>
@@ -21,34 +21,34 @@
             </div>
 
             <div class="d-flex align-items-center container_module">
-                <div class="col-md-4 container_title">
+                <div class="col-md-6 container_title">
                     <p class="m-2 mb-0 info_title" title="Transactions in this block">Transactions :</p>
                     <p class="m-2 mt-0 text-muted description fst-italic">Transactions in this block</p>
                 </div>
-                <div class="col-md-2 container_value">
+                <div class="col-md-3 container_value">
                     <p>{{ last_block.transactions | length }}</p>
                 </div>
             </div>
 
             <div class="d-flex align-items-center container_module">
-                <div class="col-md-4 container_title">
+                <div class="col-md-6 container_title">
                     <p class="m-2 mb-0 info_title" title="Time since the block has been mined">Since :</p>
                     <p class="m-2 mt-0 text-muted description fst-italic">Time since the block has been mined</p>
                 </div>
-                <div class="col-md-2 container_value">
+                <div class="col-md-3 container_value">
                     <p>{{ last_block.timestamp | since }}</p>
                 </div>
             </div>
 
             <div class="d-flex align-items-center container_module">
-                <div class="col-md-4 container_title">
+                <div class="col-md-6 container_title">
                     <p class="m-2 mb-0 info_title" title="Miner who successfully include the block onto the blockchain">
                         Miner :</p>
                     <p class="m-2 mt-0 text-muted description fst-italic">Miner who successfully include the block onto
                         the
                         blockchain</p>
                 </div>
-                <div class="col-md-2 container_value">
+                <div class="col-md-3 container_value">
                     <a onclick="loading();" href={{ url_for('address', hexa_address=last_block.miner) }}>{% if
                         last_block.miner.lower() in
                         miners %}
@@ -61,18 +61,18 @@
             </div>
 
             <div class="d-flex align-items-center container_module">
-                <div class="col-md-4 container_title">
+                <div class="col-md-6 container_title">
                     <p class="m-2 mb-0 info_title" title="Block mined at the same time as the current block">Uncle :</p>
                     <p class="m-2 mt-0 text-muted description fst-italic">Block mined at the same time as the current
                         block</p>
                 </div>
-                <div class="col-md-2 container_value">
+                <div class="col-md-3 container_value">
                     <p>{{ last_block.uncles | length }}</p>
                 </div>
             </div>
 
             <div class="d-flex align-items-center container_module">
-                <div class="col-md-4 container_title">
+                <div class="col-md-6 container_title">
                     <p class="m-2 mb-0 info_title"
                         title="Represents the part of the tx fee that is burnt: baseFeePerGas * gasUsed">
                         <i style="color: rgb(218, 70, 70);" class="fas fa-fire-alt "></i> Burnt fees :
@@ -87,7 +87,7 @@
             </div>
 
             <div class="d-flex align-items-center container_module">
-                <div class="col-md-4 container_title">
+                <div class="col-md-6 container_title">
                     <p class="m-2 mb-0 info_title"
                         title="Represents the minimum gasUsed multiplier required for a tx to be included in a block">
                         Base Fee Per Gas :</p>
@@ -95,30 +95,30 @@
                         required for a
                         tx to be included in a block</p>
                 </div>
-                <div class="col-md-2 container_value">
+                <div class="col-md-3 container_value">
                     <p>{{ last_block.baseFeePerGas | toGwei }} Gwei</p>
                 </div>
             </div>
 
             <div class="d-flex align-items-center container_module">
-                <div class="col-md-4 container_title">
+                <div class="col-md-6 container_title">
                     <p class="m-2 mb-0 info_title" title="Total gas used in the block">Gas used :</p>
                     <p class="m-2 mt-0 text-muted description fst-italic">Total gas used in the block</p>
                 </div>
-                <div class="col-md-2 container_value">
+                <div class="col-md-3 container_value">
                     <p>{{ last_block.gasUsed | comma }}</p>
                 </div>
             </div>
 
             <div class="d-flex align-items-center container_module">
-                <div class="col-md-4 container_title">
+                <div class="col-md-6 container_title">
                     <p class="m-2 mb-0 info_title"
                         title="The amount of effort required to mine a new block. The difficulty algorithm may adjust according to time">
                         Difficulty :</p>
                     <p class="m-2 mt-0 text-muted description fst-italic">The amount of effort required to mine a new
                         block. The difficulty algorithm may adjust according to time</p>
                 </div>
-                <div class="col-md-2 container_value">
+                <div class="col-md-3 container_value">
                     <p>{{ last_block.difficulty | comma }}</p>
                 </div>
             </div>

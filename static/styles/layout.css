@@ -81,15 +81,18 @@ div.search-bar form button {
 .description {
 font-size: 0.8rem;
 }
-.padding_left_ {
-  padding-left: 50px;
-}
+
+
 .container_value a{
   color: #4f4f4f;
 }
 .container_value p{
   height: 100%;
   margin: 0;
+}
+
+.data_container {
+  background-color: rgba(236, 240, 241, 0.8);
 }
 
 /* -- Table td border -- */
