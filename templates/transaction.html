@@ -16,7 +16,7 @@
                         characters identifier that is generated whenever a transaction is executed</p>
                 </div>
                 <div class="col-md-2 container_value">
-                    <a  href={{ url_for('transaction', hash=tx.hash | fromHex) }}>
+                    <a  onclick="loading();" href={{ url_for('transaction', hash=tx.hash | fromHex) }}>
                         {{ tx.hash | fromHex | cutter }}</a>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                     <p class="m-2 mt-0 text-muted description fst-italic">The sending party of the transaction</p>
                 </div>
                 <div class="col-md-2 container_value">
-                    <a href={{ url_for('address', hexa_address=tx.from) }}>{{ tx.from | cutter}}</a>
+                    <a onclick="loading();" href={{ url_for('address', hexa_address=tx.from) }}>{{ tx.from | cutter}}</a>
 
                 </div>
             </div>
@@ -49,7 +49,7 @@
                     <p class="m-2 mt-0 text-muted description fst-italic">The receiving party of the transaction</p>
                 </div>
                 <div class="col-md-2 container_value">
-                    <a href={{ url_for('address', hexa_address=tx.from) }}>{{ tx.to | cutter}}</a>
+                    <a onclick="loading();" href={{ url_for('address', hexa_address=tx.from) }}>{{ tx.to | cutter}}</a>
 
                 </div>
             </div>

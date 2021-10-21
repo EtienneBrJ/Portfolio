@@ -33,7 +33,7 @@
             <tbody class="text-center">
                 <td>
                     <div class="d-flex flex-column align-items-center">
-                        <a class="mb-0 rem08" href={{ url_for('transaction', hash=txs[i].hash | fromHex) }}>{{
+                        <a class="mb-0 rem08" onclick="loading();" href={{ url_for('transaction', hash=txs[i].hash | fromHex) }}>{{
                             txs[i].hash |
                             fromHex | cutter }}</a>
                         {% if last_block %}
@@ -46,7 +46,7 @@
                 </td>
                 <td title={{ txs[i].hash | fromHex }}>
                     <div class="pt-10px">
-                        <a href={{ url_for('address', hexa_address=txs[i].from) }}>{{ txs[i].from |
+                        <a onclick="loading();" href={{ url_for('address', hexa_address=txs[i].from) }}>{{ txs[i].from |
                             cutter}}</a>
                     </div>
                 </td>

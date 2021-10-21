@@ -27,7 +27,7 @@
         <tbody class="text-center">
           <td>
             <div class="d-flex flex-column align-items-center">
-              <a class="mb-0" href={{ url_for('block', block_number=last_blocks[i].number) }}>{{
+              <a class="mb-0" onclick="loading();" href={{ url_for('block', block_number=last_blocks[i].number) }}>{{
                 last_blocks[i].number
                 }}</a>
               <p class="small text-muted mb-0">{{ last_blocks[i].timestamp | since }}</p>
@@ -35,12 +35,12 @@
           </td>
           <td>
             <div class="pt-10px">
-              <a href={{ url_for('getAllTxs', block_number=last_blocks[i].number) }}>{{ last_blocks[i].transactions | length }}</a>
+              <a onclick="loading();" href={{ url_for('getAllTxs', block_number=last_blocks[i].number) }}>{{ last_blocks[i].transactions | length }}</a>
             </div>
           </td>
           <td>
             <div class="pt-10px">
-              <a href={{ url_for('address', hexa_address=last_blocks[i].miner) }}>{% if last_blocks[i].miner.lower() in
+              <a onclick="loading();" href={{ url_for('address', hexa_address=last_blocks[i].miner) }}>{% if last_blocks[i].miner.lower() in
                 miners %}
                 {{ miners[last_blocks[i].miner.lower()] }}
                 {% else %}
@@ -81,7 +81,7 @@
         <tbody class="text-center">
           <td>
             <div class="d-flex flex-column align-items-center">
-              <a class="mb-0 rem08" href={{ url_for('transaction', hash=txs[i].hash | fromHex) }}>{{
+              <a class="mb-0 rem08" onclick="loading();" href={{ url_for('transaction', hash=txs[i].hash | fromHex) }}>{{
                 txs[i].hash |
                 fromHex | cutter }}</a>
               <p class="small text-muted mb-0">{{ last_blocks[0].timestamp | since }}</p>
@@ -89,12 +89,12 @@
           </td>
           <td title={{ txs[i].hash | fromHex }}>
             <div class="pt-10px">
-              <a href={{ url_for('address', hexa_address=txs[i].from) }}>{{ txs[i].from | cutter}}</a>
+              <a onclick="loading();" href={{ url_for('address', hexa_address=txs[i].from) }}>{{ txs[i].from | cutter}}</a>
             </div>
           </td>
           <td title={{ txs[i].hash | fromHex }}>
             <div class="pt-10px">
-              <a href={{ url_for('address', hexa_address=txs[i].from) }}>{{ txs[i].to | cutter}}</a>
+              <a onclick="loading();" href={{ url_for('address', hexa_address=txs[i].from) }}>{{ txs[i].to | cutter}}</a>
             </div>
           </td>
           <td>
