@@ -52,7 +52,7 @@
                 </td>
                 <td title={{ txs[i].hash | fromHex }}>
                     <div class="pt-10px">
-                        <a href={{ url_for('address', hexa_address=txs[i].from) }}>{{ txs[i].to | cutter}}</a>
+                        <a onclick="loading();" href={{ url_for('address', hexa_address=txs[i].from) }}>{{ txs[i].to | cutter}}</a>
                     </div>
                 </td>
                 <td>
