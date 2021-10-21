@@ -54,29 +54,8 @@ div.search-bar form button {
   font-size: 0.8rem;
 }
 
-/* Footer */
 
-
-
-
-/* Tables */
-
-/* .table-hover tbody tr:hover td {
-  background: #91b9f2;
-  color: white;
-} */
-
-/* Display the loading page full screen */
-
-div#loading {
-  width: auto;
-  height: 100vh;
-  display: none;
-  background: url(/static/images/load.jpg) no-repeat center;
-  background-color: white;
-}
-
-/* Search bar */
+/* -- Search bar -- */
 
 .search-bar form {
   height: 50px;
@@ -97,7 +76,7 @@ div#loading {
 }
 
 
-/* Block, transactions template */
+/* -- Block, transactions template -- */
 
 .description {
 font-size: 0.8rem;
@@ -113,12 +92,13 @@ font-size: 0.8rem;
   margin: 0;
 }
 
-/*  Td border */
+/* -- Table td border -- */
+
 td {
   border: none;
 }
 
-/* Nav pagination */
+/* -- Nav pagination -- */
 
 nav .pagination {
   display: flex;
@@ -127,4 +107,42 @@ nav .pagination {
 
 ul .page-item .page-link{
   color: #4f4f4f;
+}
+
+/* -- Footer -- */
+
+footer {
+  background-color: rgba(236, 240, 241, 0.8);
+
+  position: relative;
+  height: 60px;
+}
+footer .signature {
+  position: absolute;
+  right: 15px;
+  bottom: 10px;
+}
+
+footer .logo {
+  position: absolute;
+  left: 25px;
+  bottom: 10px;
+}
+
+footer .logo a i {
+  font-size: 22px;
+}
+
+footer p {
+  margin: 0px;
+}
+
+/* -- Display the loading page full screen -- */
+
+div#loading {
+  width: auto;
+  height: 100vh;
+  display: none;
+  background: url(/static/images/load.jpg) no-repeat center;
+  background-color: white;
 }
