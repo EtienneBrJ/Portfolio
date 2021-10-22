@@ -65,15 +65,23 @@ def paginate(block_number=None):
     if block_number:
         return render_template('blocks.html', last_blocks=paginateBlocks(10, block_number), miners=config.dict_miners, price=getEthInfos())
 
-@app.route('/block/<int:block_number>/transactions', methods=["POST", "GET"])
-def paginate_transaction(block_number=None):
+@app.route('/block/<int:block_number>/transactions/<int:page>', methods=["POST", "GET"])
+def paginate_transaction(block_number=None, page=None):
     """ Get all transactions for a selected block (HREF)"""
+    if request.method == 'POST':
+        search_url = checkIncomingReq(request.form['search'])
+        if search_url:
+            return redirect(search_url)
     if block_number:
         txs = []
+        per_page = 15
         block = w3.eth.get_block(block_number)
-        for i in range(len(block.transactions)):
-            txs.append(w3.eth.get_transaction(block.transactions[i]))
-        return render_template('transactions.html', txs=txs, block=block, price=getEthInfos())
+        for i in range(per_page * (page-1), per_page * page):
+            try:
+                txs.append(w3.eth.get_transaction(block.transactions[i]))
+            except:
+                pass
+        return render_template('transactions.html', txs=txs, block=block, price=getEthInfos(), page=page)
 
 
 @app.route('/transactions/', methods=["POST", "GET"])
