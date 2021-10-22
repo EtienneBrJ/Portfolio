@@ -7,6 +7,10 @@ body {
   padding: 0;
 }
 
+/* -- Top Bar -- */
+.top_bar {
+
+}
 
 body .iconMenu {
   position: fixed;
@@ -24,8 +28,12 @@ body .iconMenu img {
 .header {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+}
+
+.header p {
+  margin: 0px;
 }
 
 div.search-bar form input {
@@ -59,7 +67,7 @@ div.search-bar form button {
 
 .search-bar form {
   height: 50px;
-  max-width: 45%;
+  max-width: 50%;
   margin: auto;
 }
 
