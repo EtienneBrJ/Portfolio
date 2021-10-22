@@ -35,7 +35,7 @@
           </td>
           <td>
             <div class="pt-10px">
-              <a onclick="loading();" href={{ url_for('getAllTxs', block_number=last_blocks[i].number) }}>{{ last_blocks[i].transactions | length }}</a>
+              <a onclick="loading();" href={{ url_for('paginate_transaction', block_number=last_blocks[i].number) }}>{{ last_blocks[i].transactions | length }}</a>
             </div>
           </td>
           <td>
