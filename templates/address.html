@@ -16,7 +16,7 @@
     </div>
     <div class="m-3">
         <span class="rounded-6">Balance : {{ balance | fromWeiRounded(2) }} <i class="fab fa-ethereum"></i></span> | 
-        <span class="rounded-6">Value : {{ balance | fromWeiRounded(0) * price['ethereum']['usd'] | int }} $</span>
+        <span class="rounded-6">Value : {{ balance | fromWeiRounded(3) * price['ethereum']['usd'] | int }} $</span>
     </div>
 
 </div>
