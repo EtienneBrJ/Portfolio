@@ -52,4 +52,4 @@ def writeToFile():
 
 while True:
     writeToFile()
-    time.sleep(30)
+    time.sleep(55)
