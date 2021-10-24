@@ -1,4 +1,5 @@
-import config, requests, json
+import config, requests, json, time
+
 
 def getEtherInCirculation():
     """ Call Etherscan API to get the current Ether in circulation 
@@ -7,7 +8,7 @@ def getEtherInCirculation():
     supplyReq = requests.get('https://api.etherscan.io/api?module=stats&action=ethsupply&apikey=' + config.ETHERSCAN_KEY)
     supply = json.loads(supplyReq.text).get('result')
     supplyInEth = int(supply) / 1000000000000000000
-    return supplyInEth
+    return dict(supply=supplyInEth)
 
 def getTotalEthNodes():
     """ Call Etherscan API to get the  total number of discoverable Ethereum nodes and
@@ -15,7 +16,7 @@ def getTotalEthNodes():
     """
     totalNodesReq = requests.get('https://api.etherscan.io/api?module=stats&action=nodecount&apikey=' + config.ETHERSCAN_KEY)
     totalNodes = json.loads(totalNodesReq.text).get('result').get('TotalNodeCount')
-    return totalNodes
+    return dict(nodes=totalNodes)
 
 def getEtherLastPrice():
     """ Call Etherscan API and
@@ -37,8 +38,18 @@ def callEtherScanAPI():
         Prends trop de temps pour faire les requetes.
         Doit autmatiser une requete toutes les 15s que je stock dans un dic et que je passe au template
     """
-    htmlApiCall = "<p class='m-2 h6'>Ether in circulation : {{ getEtherInCirculation() | int | comma }}</p>\
-        <p class='m-2 h6'>Total number of Ethereum nodes : {{ getTotalEthNodes() | int | comma }}</p>\
-        <p class='m-2 h6'>Ethereum Price : {{ getEtherLastPrice().ethereum | int | comma }} $ </p>\
-        <p class='m-2 h6'>Bitcoin Price : {{ getEtherLastPrice().bitcoin | int | comma }} $ </p>"
-    return htmlApiCall
+    dataDict = {}
+    dataDict.update(getEtherInCirculation())
+    dataDict.update(getEtherLastPrice())
+    dataDict.update(getTotalEthNodes())
+    return dataDict
+
+def writeToFile():
+    json_string = json.dumps(callEtherScanAPI())
+    with open('etherscan.json', 'w') as f:
+        f.write(json_string)
+    f.close()
+
+while True:
+    writeToFile()
+    time.sleep(30)
