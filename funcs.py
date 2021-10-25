@@ -2,11 +2,14 @@
 """ Module regrouping all the main functions
 """
 from logging import error
-import config
+import config, json
 from web3 import Web3
 from flask import request, flash, redirect
 from eth_typing.encoding import HexStr
 from pycoingecko import CoinGeckoAPI
+from datetime import datetime
+
+
 
 
 ws_provider = Web3.WebsocketProvider(config.MAINNET_WSS)
@@ -107,12 +110,19 @@ def checkIncomingReq(input_data):
     if block:
         return block
 
-def getEthInfos():
-    """ Use Coick Gecko API to get some infos on Eth """
+def getEthInfosFromCG():
+    """ Use Coin Gecko API to get some infos on Eth """
 
     cg = CoinGeckoAPI()
     eth_infos = cg.get_price(ids='ethereum', vs_currencies='usd', include_market_cap=True, include_24hr_vol=True)
     return eth_infos
+
+def getEthInfosFromES():
+    """ Use Etherscan API to get some infos on Eth """
+    es_dict = open('etherscan.json', )
+    es_dict = json.load(es_dict)
+    return es_dict
+
 
 def getAllTxsFees(nBlock):
     """ Call web3 to get the all txs fees of a block
@@ -136,3 +146,21 @@ def paginateBlocks(n, block_number=None):
         for number in range(block_number, block_number -n, -1):
             last_blocks.append(w3.eth.get_block(number))
         return last_blocks
+
+def checkSeconds(seconds):
+    """ Return a string depending on the value of sec (seconds)"""
+    if seconds >= 3600:
+        return "Plus d'1 heure"
+    elif 3600 > seconds > 60:
+        minute = int(seconds / 60)
+        if minute == 1:
+            return '{} minute ago'.format(minute)
+        return '{} minutes ago'.format(minute)
+    else:
+        return 'Since {} sec'.format(seconds)
+
+def fromTimestampToNow(timestamp):
+    """" Returns the number of seconds between the date (timestamp) and now """
+    strDate = str(datetime.fromtimestamp(timestamp))
+    blockDate=datetime.strptime(strDate, "%Y-%m-%d %H:%M:%S")
+    return (datetime.now()-blockDate).seconds
