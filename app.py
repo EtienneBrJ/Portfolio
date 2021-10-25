@@ -137,7 +137,7 @@ def fromWei(Wei, nRound):
 def cutLongStr(longStr):
     """ Cut long string and return the first 9 chars + '...'
     """
-    return (longStr[:6] + '...' + longStr[-6:]).lower()
+    return (longStr[:6] + '..' + longStr[-4:]).lower()
 
 @app.template_filter('comma')
 def commaInt(n):

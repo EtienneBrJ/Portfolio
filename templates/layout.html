@@ -7,6 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="/static/images/eth_favicon.ico">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
+
   <!-- Bootstrap CSS -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
@@ -24,33 +28,49 @@
   <!-- MDB -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
   <link href="{{ url_for('static', filename='styles/index.css')}}" rel="stylesheet">
-  <title>WatchYourHash</title>
+  <title>Watch your hash -</title>
 </head>
 
 <body>
-
+  <!-- <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Watch your Hash!</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link" href="#">Features</a>
+            <a class="nav-link" href="#">Pricing</a>
+            <a class="nav-link disabled">Disabled</a>
+          </div>
+        </div>
+      </div>
+    </nav> -->
 
 
   <div id="contents">
     <!-- Toggle menu -->
-    <div class="iconMenu shadow"><a href="/" onclick="loading();">
-        <img src="/static/images/eth_diamond_logo.svg" height="49" alt="Logo Eth">
-      </a>
-    </div>
+
 
     <!-- Header content: Eth infos, search bar -->
-    <div class="container pt-3 overflow-hidden top_bar">
-      <div class="header">
-        <p class="h6">Market Cap: ${{ price['ethereum']['usd_market_cap'] | comma }} </p>
-        <p class="h6">Current Price: ${{ price['ethereum']['usd'] | int | comma }} </p>
-        <p class="h6">24h Volume: ${{ price['ethereum']['usd_24h_vol'] | comma }} </p>
-      </div>
-    </div>
+
 
     <div class="m-5">
-      <h3 class="text-center">Ethereum Blockchain Explorer</h3>
+      <h3 class="text-center">Watch your Hash!</h3>
     </div>
+    <div class="container m-3 overflow-hidden top_bar">
+      <div class="header">
+        <p class="h6">Market Cap: ${{ fromCG()['ethereum']['usd_market_cap'] | comma }} </p>
+        <p class="h6">Current Price: ${{ fromCG()['ethereum']['usd'] | int | comma }} </p>
+        <p class="h6">24h Volume: ${{ fromCG()['ethereum']['usd_24h_vol'] | comma }} </p>
+        <p class="h6">Current supply: {{ fromES()['supply'] | comma }} Ether</p>
+        <p class="h6">Nodes: {{  fromES()['nodes'] }} </p>
+        <p class="h6">Bitcoin: ${{ fromES()['bitcoin'] }} </p>
 
+      </div>
+    </div>
     <!-- -->
     <div class="container search-bar m-3">
       <form method="POST" class="d-flex">
@@ -81,10 +101,10 @@
       </div>
       <div class="text-center copyright">
         © 2021 Copyright:
-        <a class="text-reset" href="https://mdbootstrap.com/">titixplorer-awftd.ondigitalocean.app</a>
+        <a class="text-reset" href="https://www.watchyourhash.me/">watchyourhash.com</a>
       </div>
       <div class="signature">
-        <p>Made with <img src="/static/images/iconmonstr-favorite-3-16.png" alt="Red heart"></img> by Etienne.</p>
+        <p>Made with <img src="/static/images/iconmonstr-favorite-3-16.png" alt="Red heart"></img> by Etienne</p>
       </div>
     </footer>
   </div>
