@@ -1,3 +1,4 @@
+{% set from = fromBC() %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -62,13 +63,18 @@
     </div>
     <div class="container m-3 overflow-hidden top_bar">
       <div class="header">
-        <p class="h6">Market Cap: ${{ fromCG()['ethereum']['usd_market_cap'] | comma }} </p>
-        <p class="h6">Current Price: ${{ fromCG()['ethereum']['usd'] | int | comma }} </p>
-        <p class="h6">24h Volume: ${{ fromCG()['ethereum']['usd_24h_vol'] | comma }} </p>
-        <p class="h6">Current supply: {{ fromES()['supply'] | comma }} Ether</p>
-        <p class="h6">Nodes: {{  fromES()['nodes'] }} </p>
-        <p class="h6">Bitcoin: ${{ fromES()['bitcoin'] }} </p>
+        
+        <p class="h6">Current Price: ${{ from['market_price_usd'] | int | comma }} </p>
+        <p class="h6">Market Cap: ${{ from['market_cap_usd'] | comma }} </p>
+        <p class="h6">Current supply: {{ from['circulation_approximate'] | fromWeiRounded(0) | comma }} Ether</p>
+        <p class="h6">Transactions 24h: {{ from['transactions_24h'] | comma }} Txs</p>
+        <p class="h6">Total transactions: {{ from['transactions'] | comma }} Txs</p>
+        <div>
+          <h6>Biggest transaction today</h6>
+        <p class="h6">Hash: {{ from['largest_transaction_24h']['hash'] }}</p>
+        <p class="h6">Value: ${{ from['largest_transaction_24h']['value_usd'] }}</p>
 
+        </div>
       </div>
     </div>
     <!-- -->

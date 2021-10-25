@@ -14,8 +14,7 @@ w3 = Web3(ws_provider)
 
 app = Flask(__name__)
 
-app.jinja_env.globals.update(fromES=getEthInfosFromES)
-app.jinja_env.globals.update(fromCG=getEthInfosFromCG)
+app.jinja_env.globals.update(fromBC=getEthInfosFromBC)
 
 
 # Inbuilt function handling 404 error
@@ -129,6 +128,8 @@ def fromWei(Wei, nRound):
     """ Convert Wei into Ether
         Return O if Eth < 0.01 else
     """
+    if type(Wei) is str:
+        Wei = int(Wei)
     toEth = w3.fromWei(Wei, 'ether')
     return round(toEth, nRound)
 
