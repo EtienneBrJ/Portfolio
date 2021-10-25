@@ -2,7 +2,7 @@ Block Explorer
 ---
 # About the project
 
-TitiXplorer est une web application qui permet de naviguer  retrouver des informations sur la blockchain Ethereum.
+TitiXplorer est une web application qui permet de naviguer retrouver des informations sur la blockchain Ethereum.
 The application query the Ethereum blockchain via Web3.py using Infura (Etheruem Node Provider)
 
 # Usage
