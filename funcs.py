@@ -26,8 +26,6 @@ def getlatestBlocks(n):
     return last_blocks
 
 
-
-
 def getlatestTxn(n):
     """ Put in a list (append: add at the end of the list)
         the nth transactions informations of the last mined block

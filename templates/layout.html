@@ -1,4 +1,4 @@
-{% set from = fromBC() %}
+{% set fromBc = fromBC() %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,8 +9,8 @@
   <link rel="icon" href="/static/images/eth_favicon.ico">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
 
   <!-- Bootstrap CSS -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
@@ -60,21 +60,22 @@
 
     <div class="m-5">
       <h3 class="text-center">Watch your Hash!</h3>
+      <p class="h6">Current Price: ${{ fromBc['market_price_usd'] | int | comma }} </p>
+      
     </div>
     <div class="container m-3 overflow-hidden top_bar">
       <div class="header">
-        
-        <p class="h6">Current Price: ${{ from['market_price_usd'] | int | comma }} </p>
-        <p class="h6">Market Cap: ${{ from['market_cap_usd'] | comma }} </p>
-        <p class="h6">Current supply: {{ from['circulation_approximate'] | fromWeiRounded(0) | comma }} Ether</p>
-        <p class="h6">Transactions 24h: {{ from['transactions_24h'] | comma }} Txs</p>
-        <p class="h6">Total transactions: {{ from['transactions'] | comma }} Txs</p>
-        <div>
-          <h6>Biggest transaction today</h6>
-        <p class="h6">Hash: {{ from['largest_transaction_24h']['hash'] }}</p>
-        <p class="h6">Value: ${{ from['largest_transaction_24h']['value_usd'] }}</p>
-
-        </div>
+        <p class="h6">Market Cap: ${{ fromBc['market_cap_usd'] | comma }} </p>
+        <p class="h6">Current supply: {{ fromBc['circulation_approximate'] | fromWeiRounded(0) | comma }} Ether</p>
+        <p class="h6">Transactions 24h: {{ fromBc['transactions_24h'] | comma }} Txs</p>
+        <p class="h6">Total transactions: {{ fromBc['transactions'] | comma }} Txs</p>
+        <p class="h6">Blocks 24h: {{ fromBc['blocks_24h'] | comma }}</p>
+        <p class="h6">Market dominance: {{ fromBc['market_dominance_percentage'] }}%</p>
+      </div>
+      <div>
+        <h6>Biggest transaction today</h6>
+        <p class="h6">Hash: {{ fromBc['largest_transaction_24h']['hash'] }}</p>
+        <p class="h6">Value: ${{ fromBc['largest_transaction_24h']['value_usd'] }}</p>
       </div>
     </div>
     <!-- -->
