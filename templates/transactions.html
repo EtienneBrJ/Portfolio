@@ -2,46 +2,109 @@
 
 {% block content %}
 
-<div class="m-4">
-    <h5>Ethereum Mainnet /Transactions</h5>
-</div>
+<div class="container half p-4">
+    {% if request.endpoint == 'paginate_transaction' %}
+    <p>For block <a href=url_for('block, block_number=block.number')>{{ block.number }}</a> | Page {{ page }}</p>
+    {% else %}
+    <a class="m-2" aria-current="page" href="/">../transactions</a>
+    {% endif %}
 
-<div class="shadow-4 m-4 rounded-6 bg-dark overflow-hidden">
-    <table class="table table-hover text-white table-borderless">
-        <thead class="text-center">
-            <th>
-                <p>Txn hash</p>
-            </th>
-            <th>
-                <p>From</p>
-            </th>
-            <th>
-                <p>To</p>
-            </th>
-            <th>
-                <p>Amount</p>
-            </th>
-        </thead>
-        {% for i in range(last_txn| length) %}
-        <tbody class="text-center">
-            <td>
-                <div class="d-flex flex-column align-items-center">
-                    <a class="mb-0" href={{ url_for('transaction', hash=last_txn[i].hash | fromHex) }}>{{
-                        last_txn[i].hash |
-                        fromHex | cutter }}</a>
-                    <p class="small text-muted mb-0">{{ last_block[0].timestamp | since }}</p>
-                </div>
-            </td>
-            <td title={{ last_txn[i].hash | fromHex }}>
-                <a href={{ url_for('address', hexa_address=last_txn[i].from) }}>{{ last_txn[i].from | cutter}}</a>
-            </td>
-            <td title={{ last_txn[i].hash | fromHex }}>
-                <a href={{ url_for('address', hexa_address=last_txn[i].from) }}>{{ last_txn[i].to | cutter}}</a>
-            </td>
-            <td>{{ last_txn[i].value | fromWei}} Ether</td>
-        </tbody>
-        {% endfor %}
-    </table>
+    <div class="shadow-4 rounded-6 overflow-hidden">
+        <table class="table">
+            <thead class="text-center">
+                <th>
+                    <p title="A TxHash or transaction hash is a unique 66 characters identifier that is generated whenever a transaction is executed"
+                        class="m-1">Txn hash</p>
+                </th>
+                <th>
+                    <p title="Number of the block where the transaction has been validated" class="m-1">From Block</p>
+                </th>
+                <th>
+                    <p title="The sending party of the transaction" class="m-1">From</p>
+                </th>
+                <th>
+                    <p title="The receiving party of the transaction" class="m-1">To</p>
+
+                </th>
+                <th>
+                    <p title="The value being transacted in Ether" class="m-1">Value <i class="fab fa-ethereum"></i></p>
+                </th>
+                <th>
+                    <p title="Cost per unit of gas specified for the transaction in Gwei. The higher the gas price the higher chance of getting in a block"
+                        class="m-1">Gas price</p>
+                </th>
+                <th>
+                    <p title="Amount paid to the miner for processing the transaction" class="m-1">Transaction fees</p>
+                </th>
+            </thead>
+            {% for i in range(txs| length) %}
+            <tbody class="text-center">
+                <td>
+                    <div class="d-flex flex-column align-items-center">
+                        <a class="mb-0 rem08" onclick="loading();" href={{ url_for('transaction', hash=txs[i].hash |
+                            fromHex) }}>{{
+                            txs[i].hash |
+                            fromHex | cutter }}</a>
+                        {% if last_block %}
+                        <p class="small text-muted mb-0">{{ last_block.timestamp | since }}</p>
+                        {% endif %}
+                        {% if block %}
+                        <p class="small text-muted mb-0">{{ block.timestamp | since }}</p>
+                        {% endif %}
+                    </div>
+                </td>
+                <td>
+                    <div class="pt-10px">
+                        <a onclick="loading();" href={{ url_for('block', hexa_address=txs[i].blockNumber) }}>{{
+                            txs[i].blockNumber }}</a>
+                    </div>
+                </td>
+                <td title={{ txs[i].hash | fromHex }}>
+                    <div class="pt-10px">
+                        <a onclick="loading();" href={{ url_for('address', hexa_address=txs[i].from) }}>{{ txs[i].from |
+                            cutter}}</a>
+                    </div>
+                </td>
+
+                <td title={{ txs[i].hash | fromHex }}>
+                    <div class="pt-10px">
+                        <a onclick="loading();" href={{ url_for('address', hexa_address=txs[i].from) }}>{{ txs[i].to |
+                            cutter}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div class="pt-10px">
+                        <p>{{ txs[i].value | fromWeiRounded(4)}} Ether</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="pt-10px">
+                        <p>{{ txs[i].gasPrice | toGwei }} Gwei</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="pt-10px">
+                        <p>{{ txs[i].gasPrice | getTxFees(txs[i].hash) }} Ether</p>
+                    </div>
+                </td>
+
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+    {% if request.endpoint == 'paginate_transaction' %}
+    <nav>
+        <ul class="pagination">
+            <li onclick="loading();" class="page-item"><a class="page-link" href={{ url_for('paginate_transaction',
+                    block_number=block.number, page=page-1) }}><i class="fas fa-long-arrow-alt-left"></i>
+                    &nbsp;&nbsp;&nbsp;See 15 previous transactions</a></li>
+            <li onclick="loading();" class="page-item"><a class="page-link" href={{ url_for('paginate_transaction',
+                    block_number=block.number, page=page+1 ) }}>See 15 next transactions &nbsp;&nbsp;&nbsp;<i
+                        class="fas fa-long-arrow-alt-right"></i></a></li>
+            </li>
+        </ul>
+    </nav>
+    {% endif %}
 </div>
 
 {% endblock %}

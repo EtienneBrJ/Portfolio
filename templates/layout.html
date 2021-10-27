@@ -1,3 +1,4 @@
+{% set fromBc = fromBC() %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,12 +8,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="/static/images/eth_favicon.ico">
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <link href="{{ url_for('static', filename='styles/index.css')}}" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
 
+  <!-- Bootstrap CSS -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Css -->
+  <link href="{{ url_for('static', filename='styles/layout.css')}}" rel="stylesheet">
   <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
   <!-- Google Fonts -->
@@ -22,50 +29,30 @@
   <!-- MDB -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
   <link href="{{ url_for('static', filename='styles/index.css')}}" rel="stylesheet">
-
-  <title>TitiXplorer</title>
+  <title>Ethereum Explorer</title>
 </head>
 
 <body>
+
   <div id="contents">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid testing">
-        <img src="/static/images/eth_diamond_logo.svg" height="49" alt="Logo Eth">
-        <a class="navbar-brand" href="/" onclick="loading();">TitiXplorer</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link m-1" aria-current="page" href="/blocks" onclick="loading();">Blocks</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link m-1" aria-current="page" href="/transactions" onclick="loading();">Txn</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link m-1" aria-current="page" href="/address">Address</a>
-            </li>
-          </ul>
-          <button class="btn btn-outline-light nav-link m-1 " aria-current="page" href="/address">Login</button>
-
-        </div>
-      </div>
-    </nav>
-
-    <!-- Header content: Eth infos, search bar -->
-
-    <div class="container m-4">
-      <div>
-        <h3>Ethereum Blockchain Explorer</h3>
-          <p class="m-0 h6">Current Price : ${{ price['ethereum']['usd'] }}</p>
-          <p class="m-0 h6">Market Cap : ${{ price['ethereum']['usd_market_cap'] }}</p>
-          <p class="m-0 h6">24h Volume: ${{ price['ethereum']['usd_24h_vol'] }}</p>
-      </div>
+    <div class="top_info">
+      <p>Current Price: ${{ fromBc['market_price_usd'] | int | comma }} </p>
+      <p>Supply: {{ fromBc['circulation_approximate'] | fromWeiRounded(0) | comma }} <i class="fab fa-ethereum"></i></p>
+      <p>Market cap: ${{ fromBc['market_cap_usd'] | comma }}</p>
+      <p>Market dominance: {{ fromBc['market_dominance_percentage'] }}%</p>
+      <p>Transactions: {{ fromBc['transactions'] | comma }} Txs</p>
+      <p>24h Transactions: {{ fromBc['transactions_24h'] | comma }} Txs</p>
+      <p>Inflation: ${{ fromBc['inflation_usd_24h'] | int | comma }}</p>
+    </div>
+    <div class="m-5 mb-3 text-center">
+      <h3>Watch your Hash!</h3>
+      <a class="p-1" href={{ url_for('index') }}>Index</a>
+      <a class="p-1" href={{ url_for('block') }}>Blocks</a>
+      <a class="p-1" href={{ url_for('transaction') }}>Transactions</a>
+      <a class="p-1"  href={{ url_for('address') }}>Address</a>
     </div>
     <!-- -->
-    <div class="container search-bar p-4">
+    <div class="container-fluid search-bar mb-5">
       <form method="POST" class="d-flex">
         <input name="search" class="form-control" type="search"
           placeholder="Search for a transaction hash, address or block number" aria-label="Search">
@@ -74,43 +61,41 @@
         </button>
       </form>
     </div>
-
-
     <!-- Content -->
+
 
     {% block content %}
     {% endblock %}
 
-    <!-- Footer -->
-    <footer class="bg-dark text-center text-white">
-      <!-- Grid container -->
-      <div class="container p-4 pb-0">
-        <!-- Section: Social media -->
-        <section class="mb-4">
-          <!-- Github -->
-          <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/EtienneBrJ" target="_blank"
-            role="button"><i class="fab fa-github"></i></a>
-          <!-- Linkedin -->
-          <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/in/etienne-brun-06187a205/"
-            target="_blank" role="button"><i class="fab fa-linkedin-in"></i></a>
-        </section>
-      </div>
-      <!-- Grid container -->
-      <!-- Copyright -->
-      <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-        © 2021 Copyright:
-        <a class="text-white" href="https://titixplorer-awftd.ondigitalocean.app/">https://titixplorer-awftd.ondigitalocean.app/</a>
-      </div>
-      <!-- Copyright -->
-    </footer>
 
+    <!-- Footer -->
+    <footer>
+
+      <div class="logo">
+        <a href="https://github.com/EtienneBrJ/Portfolio" class="me-4 text-reset">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/etienne-brun-06187a205/" class="me-4 text-reset">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </div>
+      <div class="text-center copyright">
+        © 2021 Copyright:
+        <a class="text-reset" href="https://www.watchyourhash.me/">watchyourhash.com</a>
+      </div>
+      <div class="signature">
+        <p>Made with <img src="/static/images/iconmonstr-favorite-3-16.png" alt="Red heart"></img> by Etienne</p>
+      </div>
+    </footer>
   </div>
+  <!-- Footer -->
+  <!-- End of .container -->
   <div id="loading"></div>
   <script type="text/javascript">
     function loading() {
       $("#contents").hide();
       $("#loading").show();
-    }
+    };
   </script>
 </body>
 

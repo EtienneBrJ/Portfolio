@@ -1,6 +1,10 @@
 """ Configuration file """
 
-MAINNET_WSS = 'wss://mainnet.infura.io/ws/v3/f10f2701e41e4707a99a75f2b2723280'
+
+INFURA_API_KEY = 'f10f2701e41e4707a99a75f2b2723280'
+ETHERSCAN_KEY = 'QCSD9KTFBH1XRNSFEQB5ZC5BRPQZ3DPNGE'
+BLOCKCHAIR_KEY = 'G___0i6wO5mgYt7sJMFEAJ6aEaXokEpE'
+MAINNET_WSS = 'wss://mainnet.infura.io/ws/v3/' + INFURA_API_KEY
 PROJECT_ID = ''
 PROJECT_SECRET = ''
 dict_miners = {
@@ -53,14 +57,14 @@ dict_miners = {
     '0x4e4e23ac3c11789e23169025503ea4373b01417b': 'KuveraPool',
     '0x7f3b29ae0d5edae9bb148537d4ed2b12beddf8b3': 'MATPool',
     '0x6c3183792fbb4a4dd276451af6baf5c66d5f5e48': 'MaxHash: EthPool',
-    '0xcf6ce585cb4a78a6f96e6c8722927161a696f337': 'MaxHash: Solo Mining',
+    '0xcf6ce585cb4a78a6f96e6c8722927161a696f337': 'MaxHash: SoloMining',
     '0x09ab1303d3ccaf5f018cd511146b07a240c70294': 'Minerall Pool',
-    '0xbbbbbbbb49459e69878219f906e73aa325ff2f0c': 'Mining DAO: Block Producer',
+    '0xbbbbbbbb49459e69878219f906e73aa325ff2f0c': 'Mining DAO',
     '0x06b8c5883ec71bc3f4b332081519f23834c8706e': 'Mining Express',
     '0x3ecef08d0e2dad803847e052249bb4f8bff2d5bb': 'MiningPoolHub',
     '0x2a98776c7e13ed1c240858bd241dcf95fc1928b4': 'myminers.org: Solo',
     '0x52bc44d5378309ee2abf1539bf71de1b7d7be3b5': 'Nanopool',
-    '0x2f979c933aef4fcddd27c0fa5c54d8a780555b0a': 'NEST Protocol: Mining Pool',
+    '0x2f979c933aef4fcddd27c0fa5c54d8a780555b0a': 'NEST Protocol',
     '0xd5bbb4264b70ca4f58c45d27b9d7e11190754a54': 'NoobPool',
     '0x6b7d50bb8fab584e54251a10e1c6cfa51dd7b618': 'PandaPool',
     '0x47c439c8784b44366735fc2cfe08228cb91d5b8e': 'PoolHub',
@@ -74,7 +78,7 @@ dict_miners = {
     '0x44fd3ab8381cc3d14afa7c4af7fd13cdc65026e1': 'W POOL',
     '0x9435d50503aee35c8757ae4933f7a0ab56597805': 'WaterholePool',
     '0xd1e56c2e765180aa0371928fd4d1e41fbcda34d4': 'Weipool',
-    '0x7c6694032b4db11ac485e1cff0f7509d58b41569': 'Whalesburg Pool: Old Address',
+    '0x7c6694032b4db11ac485e1cff0f7509d58b41569': 'Whalesburg Pool',
     '0xe4bdced60430a90f31dba03524dd5d15a2670649': 'xnpool.cn',
     '0x6a851246689eb8fc77a9bf68df5860f13f679fa0': 'ZET Technologies',
     '0x04668ec2f57cc15c381b461b9fedab5d451c8f7f': 'zhizhu.top'

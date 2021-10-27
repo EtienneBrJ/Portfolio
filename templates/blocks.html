@@ -2,60 +2,94 @@
 
 
 {% block content %}
-<div class="m-4">
-    <h5>Ethereum Mainnet /Blocks</h5>
-</div>
 
-<div class="shadow-4 rounded-6 m-4 bg-dark overflow-hidden">
-    <table class="table table-hover text-white table-borderless">
-        <thead class="text-center">
-            <th>
-                <p>Block number</p>
-            </th>
-            <th>
-                <p>Transactions</p>
-            </th>
-            <th>
-                <p>Uncle</p>
-            </th>
-            <th>
-                <p>Miner</p>
-            </th>
-            <th>
-                <p>Gas used</p>
-            </th>
-        </thead>
-        {% for i in range(last_blocks| length) %}
-        <tbody class="text-center">
-            <td>
-                <div class="d-flex flex-column align-items-center">
-                    <a class="mb-0" href={{ url_for('block', block_number=last_blocks[i].number) }}>{{ last_blocks[i].number }}</a>
-                    <p class="small text-muted mb-0">{{ last_blocks[i].timestamp | since }}</p>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <p>{{ last_blocks[i].transactions | length }}</p>
-                </div>
-            </td>
-            <td>
-                <p>{{ last_blocks[i].uncles | length }}</p>
-            </td>
-            <td>
-                <a href={{ url_for('address', hexa_address=last_blocks[i].miner) }}>
-                    {% if last_blocks[i].miner.lower() in miners %}
-                    {{ miners[last_blocks[i].miner.lower()] }}
-                    {% else %}
-                    {{ last_blocks[i].miner.lower() | cutter }}
-                    {% endif %}
-                </a>
-            </td>
-            <td>
-                <p>{{ last_blocks[i].gasUsed }}</p>
-            </td>
-        </tbody>
-        {% endfor %}
-    </table>
-</div>
+<div class="container half pt-3">
+    <a class="m-2" aria-current="page" onclick="loading();" href="/">../blocks</a>
+    <div class="shadow-4 rounded-6 overflow-hidden">
+        <table class="table">
+            <thead class="text-center">
+                <th>
+                    <p title="Lenght of the blockchain" class="m-1">Block Height</p>
+                </th>
+                <th>
+                    <p title="Transactions in this block" class="m-1">Transactions</p>
+                </th>
+                <th>
+                    <p title="Block mined at the same time as the current block" class="m-1">Uncle</p>
+                </th>
+                <th>
+                    <p title="Miner who successfully include the block onto the blockchain" class="m-1">Miner</p>
+                </th>
+                <th>
+                    <p title="Represents the minimum gasUsed multiplier required for a tx to be included in a block"
+                        class="m-1">baseFeePerGas</p>
+                </th>
+                <th>
+                    <p title="Total gas used in the block" class="m-1">Gas used</p>
+                </th>
+                <th>
+                    <p title="Represents the part of the tx fee that is burnt: baseFeePerGas * gasUsed" class="m-1"><i
+                            style="color: rgb(218, 70, 70);" class="fas fa-fire-alt "></i> Burnt fees</p>
+                </th>
+                <th>
+                    <p title="The amount of effort required to mine a new block. The difficulty algorithm may adjust according to time"
+                        class="m-1">Difficulty</p>
+                </th>
+            </thead>
+            {% for i in range(last_blocks| length) %}
+            <tbody class="text-center">
+                <td>
+                    <div class="d-flex flex-column align-items-center">
+                        <a class="mb-0 text-decoration-none" onclick="loading();" href={{ url_for('block',
+                            block_number=last_blocks[i].number) }}>{{
+                            last_blocks[i].number
+                            }}</a>
+                        <p class="small text-muted mb-0">{{ last_blocks[i].timestamp | since }}</p>
+                    </div>
+                </td>
+                <td>
+                    <div class="pt-10px">
+                        <a onclick="loading();" href={{ url_for('paginate_transaction', block_number=last_blocks[i].number, page=1) }}>{{ last_blocks[i].transactions | length }}</a>
+                    </div>
+                </td>
+                <td>
+                    <p class="pt-10px">{{ last_blocks[i].uncles | length }}</p>
+                </td>
+                <td>
+                    <div class="pt-10px">
+                        <a onclick="loading();" href={{ url_for('address', hexa_address=last_blocks[i].miner) }}>{% if
+                            last_blocks[i].miner.lower() in
+                            miners %}
+                            {{ miners[last_blocks[i].miner.lower()] }}
+                            {% else %}
+                            {{ last_blocks[i].miner.lower() | cutter }}
+                            {% endif %}
+                        </a>
+                    </div>
+                </td>
 
+                <td>
+                    <p class="pt-10px">{{ last_blocks[i].baseFeePerGas | toGwei }} Gwei </p>
+                </td>
+                <td>
+                    <p class="pt-10px">{{ last_blocks[i].gasUsed | comma }}</p>
+                </td>
+                <td>
+                    <p class="pt-10px">{{ last_blocks[i].gasUsed | burntFees(last_blocks[i].baseFeePerGas) }} Ether</p>
+                </td>
+                <td>
+                    <p class="pt-10px">{{ last_blocks[i].difficulty | comma }}</p>
+                </td>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+    <nav>
+        <ul class="pagination">
+            <li onclick="loading();" class="page-item"><a class="page-link" href={{ url_for('paginate', block_number=last_blocks[0].number | int + 10) }}><i class="fas fa-long-arrow-alt-left"></i> &nbsp;&nbsp;&nbsp;See 10 previous blocks</a></li>
+            <li onclick="loading();" class="page-item"><a class="page-link" href={{ url_for('paginate', block_number=last_blocks[9].number | int - 1) }}>See 10 next blocks &nbsp;&nbsp;&nbsp;<i class="fas fa-long-arrow-alt-right"></i></a></li>
+            </li>
+        </ul>
+    </nav>
+</div>
 {% endblock %}

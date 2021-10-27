@@ -1,47 +1,55 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<link href="{{ url_for('static', filename='styles/index.css')}}" rel="stylesheet">
-
 
 <div class="dataContent m-5 d-flex">
 
-  <div class="container half">
-    <div class="shadow-4 rounded-6 bg-dark overflow-hidden">
-      <table class="table table-hover text-white table-borderless">
+  <div class="container half ">
+    <a class="m-2" aria-current="page" href="/blocks" onclick="loading();">/blocks</a>
+    <div class="shadow-4 rounded-6 overflow-hidden">
+      <table class="table">
         <thead class="text-center">
           <th>
-            <p>Block number</p>
+            <p title="Lenght of the blockchain" class="m-1">Block Height</p>
           </th>
           <th>
-            <p>Transactions</p>
+            <p title="Transactions in this block" class="m-1">Transactions</p>
           </th>
           <th>
-            <p>Miner</p>
+            <p title="Miner who successfully include the block onto the blockchain" class="m-1">Miner</p>
+          </th>
+          <th>
+            <p title="This represents the part of the tx fee that is burnt: baseFeePerGas * gasUsed" class="m-1"> Burnt Fees</p>
           </th>
         </thead>
         {% for i in range(last_blocks| length) %}
         <tbody class="text-center">
           <td>
             <div class="d-flex flex-column align-items-center">
-              <a class="mb-0 text-decoration-none" href={{ url_for('block', block_number=last_blocks[i].number) }}>{{ last_blocks[i].number
+              <a class="mb-0" onclick="loading();" href={{ url_for('block', block_number=last_blocks[i].number) }}>{{
+                last_blocks[i].number
                 }}</a>
               <p class="small text-muted mb-0">{{ last_blocks[i].timestamp | since }}</p>
             </div>
           </td>
           <td>
-            <div>
-              <p>{{ last_blocks[i].transactions | length }}</p>
+            <div class="pt-10px">
+              <a onclick="loading();" href={{ url_for('paginate_transaction', block_number=last_blocks[i].number, page=1) }}>{{ last_blocks[i].transactions | length }}</a>
             </div>
           </td>
           <td>
-            <a href={{ url_for('address', hexa_address=last_blocks[i].miner) }}>{% if last_blocks[i].miner.lower() in
-              miners %}
-              {{ miners[last_blocks[i].miner.lower()] }}
-              {% else %}
-              {{ last_blocks[i].miner.lower() | cutter }}
-              {% endif %}
-            </a>
+            <div class="pt-10px">
+              <a onclick="loading();" href={{ url_for('address', hexa_address=last_blocks[i].miner) }}>{% if last_blocks[i].miner.lower() in
+                miners %}
+                {{ miners[last_blocks[i].miner.lower()] }}
+                {% else %}
+                {{ last_blocks[i].miner.lower() | cutter }}
+                {% endif %}
+              </a>
+            </div>
+          </td>
+          <td>
+            <p class="pt-10px">{{ last_blocks[i].gasUsed | burntFees(last_blocks[i].baseFeePerGas) }} Ether</p>
           </td>
         </tbody>
         {% endfor %}
@@ -49,39 +57,50 @@
     </div>
   </div>
 
-  <div class="container half">
-    <div class="shadow-4 rounded-6 bg-dark overflow-hidden">
-      <table class="table table-hover text-white table-borderless">
+  <div class="container half mq_tx">
+    <a class="m-2" aria-current="page" href="/transactions" onclick="loading();">/transactions</a>
+    <div class="shadow-4 rounded-6 overflow-hidden">
+      <table class="table">
         <thead class="text-center">
           <th>
-            <p>Txn hash</p>
+            <p title="A TxHash or transaction hash is a unique 66 characters identifier that is generated whenever a transaction is executed"
+              class="m-1">Txn hash</p>
           </th>
           <th>
-            <p>From</p>
+            <p title="The sending party of the transaction" class="m-1">From</p>
           </th>
           <th>
-            <p>To</p>
+            <p title="The receiving party of the transaction" class="m-1">To</p>
           </th>
           <th>
-            <p>Amount</p>
+            <p title="The value being transacted in Ether" class="m-1">Value</p>
           </th>
         </thead>
-        {% for i in range(last_txn| length) %}
+        {% for i in range(txs| length) %}
         <tbody class="text-center">
           <td>
             <div class="d-flex flex-column align-items-center">
-              <a class="mb-0" href={{ url_for('transaction', hash=last_txn[i].hash | fromHex) }}>{{ last_txn[i].hash |
+              <a class="mb-0 rem08" onclick="loading();" href={{ url_for('transaction', hash=txs[i].hash | fromHex) }}>{{
+                txs[i].hash |
                 fromHex | cutter }}</a>
               <p class="small text-muted mb-0">{{ last_blocks[0].timestamp | since }}</p>
             </div>
           </td>
-          <td title={{ last_txn[i].hash | fromHex }}>
-            <a href={{ url_for('address', hexa_address=last_txn[i].from) }}>{{ last_txn[i].from | cutter}}</a>
+          <td title={{ txs[i].hash | fromHex }}>
+            <div class="pt-10px">
+              <a onclick="loading();" href={{ url_for('address', hexa_address=txs[i].from) }}>{{ txs[i].from | cutter}}</a>
+            </div>
           </td>
-          <td title={{ last_txn[i].hash | fromHex }}>
-            <a href={{ url_for('address', hexa_address=last_txn[i].from) }}>{{ last_txn[i].to | cutter}}</a>
+          <td title={{ txs[i].hash | fromHex }}>
+            <div class="pt-10px">
+              <a onclick="loading();" href={{ url_for('address', hexa_address=txs[i].from) }}>{{ txs[i].to | cutter}}</a>
+            </div>
           </td>
-          <td>{{ last_txn[i].value | fromWei}} Ether</td>
+          <td>
+            <div class="pt-10px">
+              <p>{{ txs[i].value | fromWeiRounded(2) }} Ether</p>
+            </div>
+          </td>
         </tbody>
         {% endfor %}
       </table>
