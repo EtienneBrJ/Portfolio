@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div class="container half m-5">
+<div class="container half p-4">
     {% if request.endpoint == 'paginate_transaction' %}
     <p>For block <a href=url_for('block, block_number=block.number')>{{ block.number }}</a> | Page {{ page }}</p>
     {% else %}
@@ -15,6 +15,9 @@
                 <th>
                     <p title="A TxHash or transaction hash is a unique 66 characters identifier that is generated whenever a transaction is executed"
                         class="m-1">Txn hash</p>
+                </th>
+                <th>
+                    <p title="Number of the block where the transaction has been validated" class="m-1">From Block</p>
                 </th>
                 <th>
                     <p title="The sending party of the transaction" class="m-1">From</p>
@@ -50,12 +53,19 @@
                         {% endif %}
                     </div>
                 </td>
+                <td>
+                    <div class="pt-10px">
+                        <a onclick="loading();" href={{ url_for('block', hexa_address=txs[i].blockNumber) }}>{{
+                            txs[i].blockNumber }}</a>
+                    </div>
+                </td>
                 <td title={{ txs[i].hash | fromHex }}>
                     <div class="pt-10px">
                         <a onclick="loading();" href={{ url_for('address', hexa_address=txs[i].from) }}>{{ txs[i].from |
                             cutter}}</a>
                     </div>
                 </td>
+
                 <td title={{ txs[i].hash | fromHex }}>
                     <div class="pt-10px">
                         <a onclick="loading();" href={{ url_for('address', hexa_address=txs[i].from) }}>{{ txs[i].to |

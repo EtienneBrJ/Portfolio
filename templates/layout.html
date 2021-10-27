@@ -33,53 +33,26 @@
 </head>
 
 <body>
-  <!-- <nav class="navbar navbar-expand-lg navbar-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Watch your Hash!</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-            <a class="nav-link" href="#">Features</a>
-            <a class="nav-link" href="#">Pricing</a>
-            <a class="nav-link disabled">Disabled</a>
-          </div>
-        </div>
-      </div>
-    </nav> -->
-
 
   <div id="contents">
-    <!-- Toggle menu -->
-
-
-    <!-- Header content: Eth infos, search bar -->
-
-
-    <div class="m-5">
-      <h3 class="text-center">Watch your Hash!</h3>
-      <p class="h6">Current Price: ${{ fromBc['market_price_usd'] | int | comma }} </p>
-      
+    <div class="top_info">
+      <p>Current Price: ${{ fromBc['market_price_usd'] | int | comma }} </p>
+      <p>Supply: {{ fromBc['circulation_approximate'] | fromWeiRounded(0) | comma }} <i class="fab fa-ethereum"></i></p>
+      <p>Market cap: ${{ fromBc['market_cap_usd'] | comma }}</p>
+      <p>Market dominance: {{ fromBc['market_dominance_percentage'] }}%</p>
+      <p>Transactions: {{ fromBc['transactions'] | comma }} Txs</p>
+      <p>24h Transactions: {{ fromBc['transactions_24h'] | comma }} Txs</p>
+      <p>Inflation: ${{ fromBc['inflation_usd_24h'] | int | comma }}</p>
     </div>
-    <div class="container m-3 overflow-hidden top_bar">
-      <div class="header">
-        <p class="h6">Market Cap: ${{ fromBc['market_cap_usd'] | comma }} </p>
-        <p class="h6">Current supply: {{ fromBc['circulation_approximate'] | fromWeiRounded(0) | comma }} Ether</p>
-        <p class="h6">Transactions 24h: {{ fromBc['transactions_24h'] | comma }} Txs</p>
-        <p class="h6">Total transactions: {{ fromBc['transactions'] | comma }} Txs</p>
-        <p class="h6">Blocks 24h: {{ fromBc['blocks_24h'] | comma }}</p>
-        <p class="h6">Market dominance: {{ fromBc['market_dominance_percentage'] }}%</p>
-      </div>
-      <div>
-        <h6>Biggest transaction today</h6>
-        <p class="h6">Hash: {{ fromBc['largest_transaction_24h']['hash'] }}</p>
-        <p class="h6">Value: ${{ fromBc['largest_transaction_24h']['value_usd'] }}</p>
-      </div>
+    <div class="m-5 mb-3 text-center">
+      <h3>Watch your Hash!</h3>
+      <a class="p-1" href={{ url_for('index') }}>Index</a>
+      <a class="p-1" href={{ url_for('block') }}>Blocks</a>
+      <a class="p-1" href={{ url_for('transaction') }}>Transactions</a>
+      <a class="p-1"  href={{ url_for('address') }}>Address</a>
     </div>
     <!-- -->
-    <div class="container search-bar m-3">
+    <div class="container-fluid search-bar mb-5">
       <form method="POST" class="d-flex">
         <input name="search" class="form-control" type="search"
           placeholder="Search for a transaction hash, address or block number" aria-label="Search">

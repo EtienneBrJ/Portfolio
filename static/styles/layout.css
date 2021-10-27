@@ -10,6 +10,7 @@ body {
 
 #contents {
   font-family: 'Montserrat', sans-serif;
+  overflow: hidden;
 }
 
 #contents div.m-5 h3.text-center {
@@ -72,7 +73,7 @@ div.search-bar form button {
 
 .search-bar form {
   height: 50px;
-  max-width: 50%;
+  max-width: 45%;
   margin: auto;
 }
 
@@ -168,4 +169,20 @@ div#loading {
   display: none;
   background: url(/static/images/load.jpg) no-repeat center;
   background-color: white;
+}
+
+.top_info {
+  display: flex;
+  justify-content: space-around;
+}
+
+@media (max-width: 1300px) {
+  div.dataContent.m-5 {
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+ .mq_tx {
+   padding-top: 80px;
+ }
+
 }
