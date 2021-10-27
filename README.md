@@ -38,9 +38,9 @@ cd Portfolio
 3. Get a free API key at infura.com and change INFURA_API_KEY in config.py
 
 4. Create a virtual env, start it and install the required modules with pip:
--python3 -m venv env
--source env/bin/activate
--pip install -r requirements.txt
+> python3 -m venv env
+> source env/bin/activate
+> pip install -r requirements.txt
 
 5. Start the bash script flask_dev.sh, it will start the flask app in development mode:
 - ./flask_dev.sh
