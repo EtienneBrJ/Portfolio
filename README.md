@@ -54,7 +54,7 @@ See LICENSE.txt for more information.
 
 # Contact
 
-Etienne Brun - @Twitter_name
+Etienne Brun - [@read2696](https://twitter.com/read2696)
 Project Link : @Github Portfolio link
 
 
