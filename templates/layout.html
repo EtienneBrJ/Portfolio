@@ -44,12 +44,12 @@
       <p>24h Transactions: {{ fromBc['transactions_24h'] | comma }} Txs</p>
       <p>Inflation: ${{ fromBc['inflation_usd_24h'] | int | comma }}</p>
     </div>
-    <div class="m-5 mb-3 text-center">
-      <h3>Watch your Hash!</h3>
-      <a class="p-1" href={{ url_for('index') }}>Index</a>
-      <a class="p-1" href={{ url_for('block') }}>Blocks</a>
-      <a class="p-1" href={{ url_for('transaction') }}>Transactions</a>
-      <a class="p-1"  href={{ url_for('address') }}>Address</a>
+    <img class="logo" src={{ url_for('static', filename='images/wyh.png' ) }} alt="" width="450px" height="auto">
+    <div class="m-3 mt-0 text-center">
+      <a class="p-1" href={{ url_for('index', ) }}>Index</a>
+      <a class="p-1" href={{ url_for('block', ) }}>Blocks</a>
+      <a class="p-1" href={{ url_for('transaction', ) }}>Transactions</a>
+      <a class="p-1" href={{ url_for('address', ) }}>Address</a>
     </div>
     <!-- -->
     <div class="container-fluid search-bar mb-5">

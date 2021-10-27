@@ -1,4 +1,4 @@
-Block Explorer 
+WatchYourHash - Ethereum Block Explorer 
 ---
 ## About the project
 

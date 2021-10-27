@@ -17,7 +17,11 @@ body {
   letter-spacing: 0.1em;
 }
 
-
+#contents .logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 body .iconMenu {
   position: fixed;
   top: 20px;
