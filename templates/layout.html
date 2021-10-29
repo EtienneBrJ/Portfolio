@@ -12,6 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
 
+
   <!-- Bootstrap CSS -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
@@ -35,21 +36,52 @@
 <body>
 
   <div id="contents">
-    <div class="top_info">
-      <p>Current Price: ${{ fromBc['market_price_usd'] | int | comma }} </p>
-      <p>Supply: {{ fromBc['circulation_approximate'] | fromWeiRounded(0) | comma }} <i class="fab fa-ethereum"></i></p>
-      <p>Market cap: ${{ fromBc['market_cap_usd'] | comma }}</p>
-      <p>Market dominance: {{ fromBc['market_dominance_percentage'] }}%</p>
-      <p>Transactions: {{ fromBc['transactions'] | comma }} Txs</p>
-      <p>24h Transactions: {{ fromBc['transactions_24h'] | comma }} Txs</p>
-      <p>Inflation: ${{ fromBc['inflation_usd_24h'] | int | comma }}</p>
+    <div class="container-fluid">
+      <div class="row text-center">
+        <div class="col">
+          <p class="mt-2 mb-0">Transactions</p>
+          <p>{{ fromBc['transactions'] | comma }} Txs</p>
+        </div>
+        <div class="col">
+          <p class="mt-2 mb-0">24h Transactions</p>
+          <p>{{ fromBc['transactions_24h'] | comma }} Txs</p>
+        </div>
+        <div class="col">
+          <p class="mt-2 mb-0">Current Price</p>
+          <p>${{ fromBc['market_price_usd'] | int | comma }}</p>
+        </div>
+        <div class="col">
+          <p class="mt-2 mb-0">Market dominance</p>
+          <p> {{ fromBc['market_dominance_percentage'] }}%</p>
+        </div>
+        <div class="col">
+          <p class="mt-2 mb-0">Supply</p>
+          <p>{{ fromBc['circulation_approximate'] | fromWeiRounded(0) | comma }} <i class="fab fa-ethereum"></i></p>
+        </div>
+        <div class="col">
+          <p class="mt-2 mb-0">Market cap</p>
+          <p>${{ fromBc['market_cap_usd'] | comma }}</p>
+        </div>
+        <div class="col">
+          <p class="mt-2 mb-0">Inflation</p>
+          <p>${{ fromBc['inflation_usd_24h'] | int | comma }}</p>
+        </div>
+      </div>
     </div>
-    <div class="m-5 mb-3 text-center">
-      <h3>Watch your Hash!</h3>
-      <a class="p-1" href={{ url_for('index') }}>Index</a>
-      <a class="p-1" href={{ url_for('block') }}>Blocks</a>
-      <a class="p-1" href={{ url_for('transaction') }}>Transactions</a>
-      <a class="p-1"  href={{ url_for('address') }}>Address</a>
+    <div class="metamask p-3">
+      <div>
+        <button id='loginButton' onclick="" class="btn btn-outline-primary inline">Connect to Metamask
+        </button>
+        <p id='userWallet'></p>
+      </div>
+    </div>
+    <img class="wyhLogo" src="/static/images/logo.png" alt="watchyourhash logo">
+    <div class="m-2 mb-3 text-center">
+
+      <a class="p-3" href={{ url_for('index') }}>Index</a>
+      <a class="p-3" href={{ url_for('block') }}>Blocks</a>
+      <a class="p-3" href={{ url_for('transaction') }}>Transactions</a>
+      <a class="p-3" href={{ url_for('address') }}>Address</a>
     </div>
     <!-- -->
     <div class="container-fluid search-bar mb-5">
@@ -96,6 +128,60 @@
       $("#contents").hide();
       $("#loading").show();
     };
+
+    window.userWalletAddress = null
+    const loginButton = document.getElementById('loginButton')
+    const userWallet = document.getElementById('userWallet')
+
+
+    function toggleButton() {
+      if (!window.ethereum) {
+        loginButton.innerText = 'MetaMask is not installed';
+        loginButton.classList.remove('btn-outline-primary');
+        loginButton.classList.add('btn-outline-danger', 'cursor-not-allowed');
+        return false
+      }
+      loginButton.addEventListener('click', loginWithMetaMask)
+    }
+
+    async function loginWithMetaMask() {
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' })
+        .catch((e) => {
+          console.error(e.message)
+          return
+        })
+      if (!accounts) { return }
+
+      window.userWalletAddress = accounts[0]
+      userWallet.innerText = window.userWalletAddress
+      loginButton.innerText = 'Sign out of Metamask'
+      loginButton.classList.remove('btn-outline-primary')
+      loginButton.classList.add('btn-outline-danger')
+
+
+      loginButton.removeEventListener('click', loginWithMetaMask)
+      setTimeout(() => {
+        loginButton.addEventListener('click', signOutMetaMask)
+      }, 200)
+    }
+
+    function signOutMetaMask() {
+      window.userWalletAddress = null
+      userWallet.innerText = ''
+      loginButton.innerText = 'Sign in with Metamask'
+      loginButton.classList.remove('btn-outline-danger')
+      loginButton.classList.add('btn-outline-success')
+
+      loginButton.removeEventListener('click', signOutMetaMask)
+      setTimeout(() => {
+        loginButton.addEventListener('click', loginWithMetaMask)
+      }, 200)
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      toggleButton();
+    });
+
   </script>
 </body>
 
