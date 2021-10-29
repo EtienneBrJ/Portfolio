@@ -17,7 +17,6 @@ body {
   letter-spacing: 0.1em;
 }
 
-
 body .iconMenu {
   position: fixed;
   top: 20px;
@@ -176,13 +175,36 @@ div#loading {
   justify-content: space-around;
 }
 
+/* METAMASK button */
+
+.metamask div {
+  display: flex;
+  justify-content: end;
+  flex-direction: column;
+  align-items: center;
+}
+
+.metamask p {
+  font-size: 0.8rem;
+}
+
+.wyhLogo {
+  width: 25%;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+
 @media (max-width: 1300px) {
   div.dataContent.m-5 {
     flex-wrap: wrap;
     justify-content: space-around;
   }
- .mq_tx {
-   padding-top: 80px;
- }
- 
+  .mq_tx {
+    padding-top: 80px;
+  }
 }
+
+
+
