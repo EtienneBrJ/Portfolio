@@ -22,7 +22,10 @@ def getlatestBlocks(n):
     """
     last_blocks = []
     for number in range(w3.eth.block_number, w3.eth.block_number -n, -1):
-        last_blocks.append(w3.eth.get_block(number))
+        try:
+            last_blocks.append(w3.eth.get_block(number))
+        except:
+            pass
     return last_blocks
 
 
@@ -35,7 +38,7 @@ def getlatestTxn(n):
         try:
             last_txn.append(w3.eth.get_transaction_by_block('latest', idx))
         except:
-            last_txn.append(w3.eth.get_transaction_by_block(w3.eth.get_block_number() - 1, idx))
+            pass
     return last_txn
 
 def checkIfTx(inputData):
