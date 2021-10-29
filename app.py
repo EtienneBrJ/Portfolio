@@ -169,7 +169,10 @@ def getTxFees(gasPrice, hash):
     """ Call web3 to get the receipt of a transaction to
         return the tx fees of this transaction
     """
-    receipt = w3.eth.get_transaction_receipt(hash)
+    try:
+        receipt = w3.eth.get_transaction_receipt(hash)
+    except:
+        pass
     tx_fees = (gasPrice / 1000000000000000000)* receipt.gasUsed
     return round(tx_fees, 6)
 
