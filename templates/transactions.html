@@ -4,9 +4,9 @@
 
 <div class="container half p-4">
     {% if request.endpoint == 'paginate_transaction' %}
-    <p>For block <a href=url_for('block, block_number=block.number')>{{ block.number }}</a> | Page {{ page }}</p>
+    <p>For block <a href=url_for('block', block_number=block.number)>{{ block.number }}</a> | Page {{ page }}</p>
     {% else %}
-    <a class="m-2" aria-current="page" href="/">../transactions</a>
+    <a class="m-2 content_title" aria-current="page" href="/">../transactions</a>
     {% endif %}
 
     <div class="shadow-4 rounded-6 overflow-hidden">
@@ -46,10 +46,10 @@
                             txs[i].hash |
                             fromHex | cutter }}</a>
                         {% if last_block %}
-                        <p class="small text-muted mb-0">{{ last_block.timestamp | since }}</p>
+                        <p class="small since mb-0">{{ last_block.timestamp | since }}</p>
                         {% endif %}
                         {% if block %}
-                        <p class="small text-muted mb-0">{{ block.timestamp | since }}</p>
+                        <p class="small since mb-0">{{ block.timestamp | since }}</p>
                         {% endif %}
                     </div>
                 </td>
