@@ -49,7 +49,9 @@
                 </td>
                 <td>
                     <div class="pt-10px">
-                        <a onclick="loading();" href={{ url_for('paginate_transaction', block_number=last_blocks[i].number, page=1) }}>{{ last_blocks[i].transactions | length }}</a>
+                        <a onclick="loading();" href={{ url_for('paginate_transaction',
+                            block_number=last_blocks[i].number, page=1) }}>{{ last_blocks[i].transactions | length
+                            }}</a>
                     </div>
                 </td>
                 <td>
@@ -85,8 +87,14 @@
     </div>
     <nav>
         <ul class="pagination">
-            <li onclick="loading();" class="page-item"><a class="page-link" href={{ url_for('paginate', block_number=last_blocks[0].number | int + 10) }}><i class="fas fa-long-arrow-alt-left"></i> &nbsp;&nbsp;&nbsp;See 10 previous blocks</a></li>
-            <li onclick="loading();" class="page-item"><a class="page-link" href={{ url_for('paginate', block_number=last_blocks[9].number | int - 1) }}>See 10 next blocks &nbsp;&nbsp;&nbsp;<i class="fas fa-long-arrow-alt-right"></i></a></li>
+            {% if request.endpoint == 'paginate' %}
+            <li onclick="loading();" class="page-item"><a class="page-link" href={{ url_for('paginate',
+                    block_number=last_blocks[0].number | int + 10) }}><i class="fas fa-long-arrow-alt-left"></i>
+                    &nbsp;&nbsp;&nbsp;See 10 previous blocks</a></li>
+            {% endif %}
+            <li onclick="loading();" class="page-item"><a class="page-link" href={{ url_for('paginate',
+                    block_number=last_blocks[9].number | int - 1) }}>See 10 next blocks &nbsp;&nbsp;&nbsp;<i
+                        class="fas fa-long-arrow-alt-right"></i></a></li>
             </li>
         </ul>
     </nav>

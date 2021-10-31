@@ -95,9 +95,11 @@
     {% if request.endpoint == 'paginate_transaction' %}
     <nav>
         <ul class="pagination">
+            {% if page > 1 %}
             <li onclick="loading();" class="page-item"><a class="page-link" href={{ url_for('paginate_transaction',
                     block_number=block.number, page=page-1) }}><i class="fas fa-long-arrow-alt-left"></i>
                     &nbsp;&nbsp;&nbsp;See 15 previous transactions</a></li>
+            {% endif %}
             <li onclick="loading();" class="page-item"><a class="page-link" href={{ url_for('paginate_transaction',
                     block_number=block.number, page=page+1 ) }}>See 15 next transactions &nbsp;&nbsp;&nbsp;<i
                         class="fas fa-long-arrow-alt-right"></i></a></li>

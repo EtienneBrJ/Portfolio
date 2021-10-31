@@ -8,51 +8,46 @@ body {
   padding: 0;
 }
 
-
-
 /* --- Body div --- */
 
 #contents {
   font-family: 'Poppins', sans-serif;
   overflow: hidden;
-  color: rgba(30, 66, 121, 0.9);
+  color: rgb(3 27 64 / 90%);
 }
-
 
 /* -----FONT COLOR-------- */
 
 #contents .container-fluid .row {
-  color: rgba(30, 66, 121, 0.9);
+  color: rgb(3 27 64 / 90%);
 }
 
-.link a, link a:hover{
+.link a, link a:hover {
   font-size: 20px;
-  color: rgba(30, 66, 121, 0.9);
+  color: rgb(3 27 64 / 90%);
 }
 
-.content_title, .half a .content_title:hover {
-  color: rgba(30, 66, 121, 0.9);
+.content_title, .half a .content_title:hover, a:hover {
+  color: rgb(3 27 64 / 90%);
 }
 
-td p, .half div a,
- .half thead th p{
+td p, .half div a, .half thead th p {
   color: white;
 }
+
 .since, .description, .half .container_value a:hover {
-color: rgba(160, 179, 209, 0.7);
+  color: rgba(160, 179, 209, 0.7);
 }
-
-
 
 /* METAMASK button */
 
-.metamask div{
+.metamask div {
   padding-right: 70px;
   display: flex;
   justify-content: flex-end;
 }
 
-.metamask div p{
+.metamask div p {
   height: 15px;
   display: flex;
   justify-content: flex-end;
@@ -60,21 +55,20 @@ color: rgba(160, 179, 209, 0.7);
   color: #1e4279;
 }
 
-
 .metamask div button {
   font-size: 0.8rem;
   color: white;
-  background-color: rgba(30, 66, 121, 0.9);
+  background-color: rgba(30, 66, 121, 1);
 }
+
 .metamask div button:hover {
   color: white;
 }
+
 .metamask p {
   font-size: 0.7rem;
-  color: rgba(30, 66, 121, 0.9);
+  color: rgba(30, 66, 121, 1);
 }
-
-
 
 /* ---- Logo ----- */
 
@@ -84,16 +78,12 @@ color: rgba(160, 179, 209, 0.7);
   display: block;
   margin-right: auto;
   margin-left: auto;
-  position: relative;
-  top: -31px;
 }
 
 .wyhLogo, .link, .search-bar {
   position: relative;
   top: -31px;
 }
-
-
 
 /* ---- Search bar ---- */
 
@@ -103,49 +93,51 @@ div.search-bar form input {
   border-width: 2px;
   color: #1e4279;
 }
-div.search-bar form input::placeholder,
-div.search-bar form input:focus,
-div.search-bar form input:hover {
-  color: #1e4279;
-  border-color: #1e4279;
+
+div.search-bar form input::placeholder, div.search-bar form input:focus, div.search-bar form input:hover {
+  color: rgb(3 27 64 / 90%);
+  border-color: rgb(3 27 64 / 90%);
 }
-div.search-bar form button,
-div.search-bar form button:hover {
+
+div.search-bar form button, div.search-bar form button:hover {
   background-color: rgba(30, 66, 121, 1);
 }
-.search-bar form {  /* searchbar-size */
+
+.search-bar form {
+  /* searchbar-size */
   height: 50px;
   max-width: 45%;
   margin: auto;
 }
-.search-bar input {  /* searchbar-border */
+
+.search-bar input {
+  /* searchbar-border */
   border-radius: 0px;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
 }
+
 .search-bar button {
   border-radius: 0px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 }
 
-
-
 /* --- Tables --- */
 
 .half .table {
   margin-bottom: 0px;
-  background-color: rgba(30, 66, 121, 0.9);
-  border-color: rgba(30, 66, 121, 1);
+  background-color: rgb(3 27 64 / 90%);
+  border-color: rgb(3 27 64 / 90%);
 }
+
 .pt-10px {
   padding-top: 10px;
 }
+
 .rem08 {
   font-size: 0.8rem;
 }
-
-
 
 /* -- Block, transactions template -- */
 
@@ -156,26 +148,22 @@ div.search-bar form button:hover {
 .container_value a {
   color: white;
 }
-s
-.container_value p {
+
+s .container_value p {
   height: 100%;
   margin: 0;
 }
 
 .data_container {
-  background-color: rgba(30, 66, 121, 0.9);
+  background-color: rgb(3 27 64 / 90%);
   color: white;
 }
-
-
 
 /* -- Table td border -- */
 
 td {
   border: none;
 }
-
-
 
 /* -- Nav pagination -- */
 
@@ -187,8 +175,6 @@ nav .pagination {
 ul .page-item .page-link {
   color: #4f4f4f;
 }
-
-
 
 /* -- Footer -- */
 
@@ -226,8 +212,6 @@ footer p {
   margin: 0px;
 }
 
-
-
 /* -- Display the loading page full screen -- */
 
 div#loading {
@@ -242,8 +226,6 @@ div#loading {
   display: flex;
   justify-content: space-around;
 }
-
-
 
 @media (max-width: 1300px) {
   div.dataContent.m-5 {
@@ -268,21 +250,17 @@ div#loading {
     max-width: 60%;
     margin: auto;
   }
-
   .metamask div button {
     font-size: 0.65rem;
     width: 175px;
   }
-.metamask div {
+  .metamask div {
     padding-right: 30px;
-}
-
+  }
   .metamask div p {
     font-size: 0.8rem;
   }
 }
-
-
 
 @media (max-width: 700px) {
   div.dataContent.m-5 {
@@ -307,16 +285,12 @@ div#loading {
     max-width: 80%;
     margin: auto;
   }
-  .metamask div{
+  .metamask div {
     padding-right: 0px;
     justify-content: center;
   }
-  .metamask div p{
+  .metamask div p {
     justify-content: center;
     font-size: 0.7rem;
   }
-  
 }
-
-
-
