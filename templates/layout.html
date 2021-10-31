@@ -16,10 +16,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <!-- Css -->
   <link href="{{ url_for('static', filename='styles/styles.css')}}" rel="stylesheet">
-  <!-- Font Awesome --> 
+  <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet" />
   <!-- Google Fonts -->
-   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <!-- MDB -->
@@ -69,18 +69,18 @@
         <button id='loginButton' onclick="" class="btn">Connect to Metamask
         </button>
       </div>
-    </div>      
+    </div>
     <div class="metamask">
       <div>
         <p id='userWallet'></p>
       </div>
-    </div> 
+    </div>
     <img class="wyhLogo pb-2" src="/static/images/logo.png" alt="watchyourhash logo">
     <div class="mb-4 h2 text-center link">
-      <a class="p-3" onclick="loading();" href={{ url_for('index') }}>Index</a>
-      <a class="p-3" onclick="loading();" href={{ url_for('block') }}>Blocks</a>
-      <a class="p-3" onclick="loading();" href={{ url_for('transaction') }}>Transactions</a>
-      <a class="p-3" onclick="loading();" href={{ url_for('address') }}>Address</a>
+      <a class="p-3" style="color: #ac2c25;" onclick="loading();" href={{ url_for('index') }}>Index</a>
+      <a class="p-3" style="color: #ac2c25;" onclick="loading();" href={{ url_for('block') }}>Blocks</a>
+      <a class="p-3" style="color: #ac2c25;" onclick="loading();" href={{ url_for('transaction') }}>Transactions</a>
+      <a class="p-3" style="color: #ac2c25;" onclick="loading();" href={{ url_for('address') }}>Address</a>
     </div>
     <!-- -->
     <div class="container-fluid search-bar mb-5">
