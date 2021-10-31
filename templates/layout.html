@@ -136,7 +136,6 @@
     function toggleButton() {
       if (!window.ethereum) {
         loginButton.innerText = 'MetaMask is not installed';
-        loginButton.classList.add('btn-outline-danger', 'cursor-not-allowed');
         return false
       }
       loginButton.addEventListener('click', loginWithMetaMask)
