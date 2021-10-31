@@ -84,6 +84,13 @@ color: rgba(160, 179, 209, 0.7);
   display: block;
   margin-right: auto;
   margin-left: auto;
+  position: relative;
+  top: -31px;
+}
+
+.wyhLogo, .link, .search-bar {
+  position: relative;
+  top: -31px;
 }
 
 
