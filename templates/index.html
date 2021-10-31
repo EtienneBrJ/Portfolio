@@ -4,10 +4,10 @@
 
 <div class="dataContent m-5 d-flex">
 
-  <div class="container half ">
-    <a class="m-2" aria-current="page" href="/blocks" onclick="loading();">/blocks</a>
+  <div class="container half">
+    <a class="m-2 content_title" aria-current="page" href="/blocks" onclick="loading();">/blocks</a>
     <div class="shadow-4 rounded-6 overflow-hidden">
-      <table class="table">
+      <table class="table table-borderless">
         <thead class="text-center">
           <th>
             <p title="Lenght of the blockchain" class="m-1">Block Height</p>
@@ -19,7 +19,8 @@
             <p title="Miner who successfully include the block onto the blockchain" class="m-1">Miner</p>
           </th>
           <th>
-            <p title="This represents the part of the tx fee that is burnt: baseFeePerGas * gasUsed" class="m-1"> Burnt Fees</p>
+            <p title="This represents the part of the tx fee that is burnt: baseFeePerGas * gasUsed" class="m-1"><i
+              style="color: #ac2c25;" class="fas fa-fire-alt "></i> Burnt Fees</p>
           </th>
         </thead>
         {% for i in range(last_blocks| length) %}
@@ -29,7 +30,7 @@
               <a class="mb-0" onclick="loading();" href={{ url_for('block', block_number=last_blocks[i].number) }}>{{
                 last_blocks[i].number
                 }}</a>
-              <p class="small text-muted mb-0">{{ last_blocks[i].timestamp | since }}</p>
+              <p class="small since mb-0">{{ last_blocks[i].timestamp | since }}</p>
             </div>
           </td>
           <td>
@@ -58,9 +59,9 @@
   </div>
 
   <div class="container half mq_tx">
-    <a class="m-2" aria-current="page" href="/transactions" onclick="loading();">/transactions</a>
+    <a class="m-2 content_title" aria-current="page" href="/transactions" onclick="loading();">/transactions</a>
     <div class="shadow-4 rounded-6 overflow-hidden">
-      <table class="table">
+      <table class="table table-borderless">
         <thead class="text-center">
           <th>
             <p title="A TxHash or transaction hash is a unique 66 characters identifier that is generated whenever a transaction is executed"
@@ -83,7 +84,7 @@
               <a class="mb-0 rem08" onclick="loading();" href={{ url_for('transaction', hash=txs[i].hash | fromHex) }}>{{
                 txs[i].hash |
                 fromHex | cutter }}</a>
-              <p class="small text-muted mb-0">{{ last_blocks[0].timestamp | since }}</p>
+              <p class="small since mb-0">{{ last_blocks[0].timestamp | since }}</p>
             </div>
           </td>
           <td title={{ txs[i].hash | fromHex }}>
@@ -93,7 +94,7 @@
           </td>
           <td title={{ txs[i].hash | fromHex }}>
             <div class="pt-10px">
-              <a onclick="loading();" href={{ url_for('address', hexa_address=txs[i].from) }}>{{ txs[i].to | cutter}}</a>
+              <a onclick="loading();" href={{ url_for('address', hexa_address=txs[i].to) }}>{{ txs[i].to | cutter}}</a>
             </div>
           </td>
           <td>
@@ -106,6 +107,5 @@
       </table>
     </div>
   </div>
-
 </div>
 {% endblock %}

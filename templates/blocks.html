@@ -4,7 +4,7 @@
 {% block content %}
 
 <div class="container half pt-3">
-    <a class="m-2" aria-current="page" onclick="loading();" href="/">../blocks</a>
+    <a class="m-2 content_title" aria-current="page" onclick="loading();" href="/">../blocks</a>
     <div class="shadow-4 rounded-6 overflow-hidden">
         <table class="table">
             <thead class="text-center">
@@ -29,7 +29,7 @@
                 </th>
                 <th>
                     <p title="Represents the part of the tx fee that is burnt: baseFeePerGas * gasUsed" class="m-1"><i
-                            style="color: rgb(218, 70, 70);" class="fas fa-fire-alt "></i> Burnt fees</p>
+                            style="color: #ac2c25;" class="fas fa-fire-alt "></i> Burnt fees</p>
                 </th>
                 <th>
                     <p title="The amount of effort required to mine a new block. The difficulty algorithm may adjust according to time"
@@ -44,7 +44,7 @@
                             block_number=last_blocks[i].number) }}>{{
                             last_blocks[i].number
                             }}</a>
-                        <p class="small text-muted mb-0">{{ last_blocks[i].timestamp | since }}</p>
+                        <p class="small since mb-0">{{ last_blocks[i].timestamp | since }}</p>
                     </div>
                 </td>
                 <td>
@@ -67,7 +67,6 @@
                         </a>
                     </div>
                 </td>
-
                 <td>
                     <p class="pt-10px">{{ last_blocks[i].baseFeePerGas | toGwei }} Gwei </p>
                 </td>
