@@ -218,7 +218,7 @@ div#loading {
   width: auto;
   height: 100vh;
   display: none;
-  background: url(/static/images/load.jpg) no-repeat center;
+  background: url(/static/images/load.gif) no-repeat center;
   background-color: white;
 }
 
