@@ -100,24 +100,27 @@
 
 
     <!-- Footer -->
-    <footer>
-
-      <div class="logo">
-        <a href="https://github.com/EtienneBrJ/Portfolio" class="me-4 text-reset">
-          <i class="fab fa-github"></i>
-        </a>
-        <a href="https://www.linkedin.com/in/etienne-brun-06187a205/" class="me-4 text-reset">
-          <i class="fab fa-linkedin"></i>
-        </a>
-      </div>
-      <div class="text-center copyright">
-        © 2021 Copyright:
-        <a class="text-reset" href="https://www.watchyourhash.me/">watchyourhash.com</a>
-      </div>
-      <div class="signature">
-        <p>Made with <img src="/static/images/iconmonstr-favorite-3-16.png" alt="Red heart"></img> by Etienne</p>
-      </div>
-    </footer>
+    {% if request.endpoint == 'address' %}
+    <footer style="position: unset; bottom: 0; height: 0px;">
+      {% else %}
+      <footer>
+        {% endif %}
+        <div class="logo">
+          <a href="https://github.com/EtienneBrJ/Portfolio" class="me-4 text-reset">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://www.linkedin.com/in/etienne-brun-06187a205/" class="me-4 text-reset">
+            <i class="fab fa-linkedin"></i>
+          </a>
+        </div>
+        <div class="text-center copyright">
+          © 2021 Copyright:
+          <a class="text-reset" href="https://www.watchyourhash.me/">watchyourhash.com</a>
+        </div>
+        <div class="signature">
+          <p>Made with <img src="/static/images/iconmonstr-favorite-3-16.png" alt="Red heart"></img> by Etienne</p>
+        </div>
+      </footer>
   </div>
   <!-- Footer -->
   <!-- End of .container -->
